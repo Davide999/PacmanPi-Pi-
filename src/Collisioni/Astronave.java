@@ -7,7 +7,7 @@ package Collisioni;
 /**
  * Questa classe rappresenta l'astronave. 
  * Vengono gestite le immagini dell'astronave e le sue coordinate. 
- * I metodi keyPressed() and keyReleased() controllano se lo sprite è in movimento o fermo. 
+ * I metodi keyPressed() and keyReleased() controllano se lo sprite ï¿½ in movimento o fermo. 
  * @author depietro
  */
 
@@ -35,11 +35,11 @@ public class Astronave {
     public Astronave() {
         ImageIcon ii; 
         image=new Image[3];        
-        ii=new ImageIcon(this.getClass().getResource("../images/astronave1.png"));
+        ii=new ImageIcon(this.getClass().getResource("../Pacman/sprites/pacman/pacman0.png"));
         image[0]=ii.getImage();
-        ii=new ImageIcon(this.getClass().getResource("../images/astronave2.png"));
+        ii=new ImageIcon(this.getClass().getResource("../Pacman/sprites/pacman/pacman0.png"));
         image[1]=ii.getImage();
-        ii=new ImageIcon(this.getClass().getResource("../images/astronave3.png"));
+        ii=new ImageIcon(this.getClass().getResource("../Pacman/sprites/pacman/pacman0.png"));
         image[2]=ii.getImage();
         
         x = 300;

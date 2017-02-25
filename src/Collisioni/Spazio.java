@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Collisioni;
 
 import java.awt.Canvas;
@@ -28,15 +24,12 @@ public class Spazio extends Canvas implements ActionListener, KeyListener{
     private int genera;
     private Esplosione esplosione;
     
-    
-    
-    
     public Spazio(){
         
         astronave=new Astronave();
         //prepara la finestra        
         JFrame f=new JFrame("Gioco spaziale");
-        f.setSize(700, 525);
+        f.setSize(400, 550);
         f.setResizable(false);
         f.setLocation(100, 100);
         f.add(this);
