@@ -2,9 +2,11 @@ package Pacman;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class PacmanCharacter {
+public class PacmanCharacter implements ActionListener {
 
     // singleton instance
     public static PacmanCharacter instance = new PacmanCharacter();
@@ -12,6 +14,7 @@ public class PacmanCharacter {
     // images of the sprite
     private Image[] images;
     private int currentImage = 0;
+    private int deltaCurrentImage = 1;
     private int horiz = 300;
 
     // position and movement
@@ -28,12 +31,16 @@ public class PacmanCharacter {
         // initialize images array
         images = new Image[numImages];
         for (int i = 0; i < numImages; i++)
-            images[i] = new ImageIcon(this.getClass().getResource("sprites/pacman/pacman0.png"))
+            images[i] = new ImageIcon(this.getClass().getResource("sprites/pacman/pacman"+i+".png"))
                     .getImage();
 
         // set character dimension
         width = images[0].getWidth(null);
         height = images[0].getHeight(null);
+
+        // start timer timeout
+        Timer timer = new Timer(30, this);
+        timer.start();
     }
 
     public Rectangle getDimensionRectangle() {
@@ -44,7 +51,6 @@ public class PacmanCharacter {
     public void move() {
         horiz += deltaHoriz;
         vert += deltaVert;
-        System.out.println(horiz + " " + vert);
     }
 
     public int getHoriz() {
@@ -92,5 +98,12 @@ public class PacmanCharacter {
                 deltaVert = 0;
                 break;
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if(currentImage == images.length-1) deltaCurrentImage = -1;
+        if(currentImage == 0) deltaCurrentImage = 1;
+        currentImage += deltaCurrentImage;
     }
 }
