@@ -10,7 +10,7 @@ public class PlayFrame extends JFrame implements KeyListener{
 
 	private PlayFrame(){
 		super("Pacman");
-		this.setSize(400, 550);
+		this.setSize(1000, 500);
         this.setResizable(false);
         this.setLocation(100, 100);
         this.add(PlayCanvas.instance);

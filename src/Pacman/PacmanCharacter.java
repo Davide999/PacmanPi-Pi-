@@ -15,10 +15,10 @@ public class PacmanCharacter implements ActionListener {
     private Image[] images;
     private int currentImage = 0;
     private int deltaCurrentImage = 1;
-    private int horiz = 300;
-
+    
     // position and movement
-    private int vert = 400;
+    private int horiz = 200;
+    private int vert = 250;
     private int deltaHoriz = 0;
     private int deltaVert = 0;
     private int width;
@@ -68,15 +68,19 @@ public class PacmanCharacter implements ActionListener {
     public void handleKeyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
                 deltaHoriz = -2;
                 break;
             case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
                 deltaHoriz = 2;
                 break;
             case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
                 deltaVert = -2;
                 break;
             case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
                 deltaVert = 2;
                 break;
             // case KeyEvent.VK_SPACE: - future
@@ -86,15 +90,15 @@ public class PacmanCharacter implements ActionListener {
     public void handleKeyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                deltaHoriz = 0;
-                break;
             case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_A:
                 deltaHoriz = 0;
                 break;
             case KeyEvent.VK_UP:
-                deltaVert = 0;
-                break;
             case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_W:
+            case KeyEvent.VK_S:
                 deltaVert = 0;
                 break;
         }
