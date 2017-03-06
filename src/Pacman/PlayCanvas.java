@@ -5,9 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import Pacman.Punti;
 
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
@@ -19,9 +22,16 @@ public class PlayCanvas extends java.awt.Canvas
     }
 
     private int scrollPosition = 0;
+    private int livelloPunti;
+    private int generaPunti;
+    private Vector<Punti> PuntiVettore;
     private Timer timer; // timeout
 
     private PlayCanvas() {
+    	
+    	PuntiVettore=new Vector<Punti>();
+        livelloPunti=1;
+        generaPunti=0;
         // start timer timeout
         timer = new Timer(4, this);
         timer.start();
@@ -51,7 +61,12 @@ public class PlayCanvas extends java.awt.Canvas
         // moves pacman and draws it
         PacmanCharacter.instance.move();
         PacmanCharacter.instance.paintImage(buffer);
-
+        
+        //Gesione punti
+        for (int i=0;i<PuntiVettore.size();i++){
+            Punti p=(Punti)PuntiVettore.get(i);
+            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
@@ -68,6 +83,26 @@ public class PlayCanvas extends java.awt.Canvas
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+    	creaPunti();
+    	for (int i=0;i<PuntiVettore.size();i++){
+            Punti p=(Punti)PuntiVettore.get(i);
+            if (p.isVisible()) {
+                p.move();
+            }
+            else {
+                PuntiVettore.remove(i);
+            }
+        }
+        PacmanCharacter.instance.move();
         repaint();
+    }
+
+    private void creaPunti() {
+        generaPunti++;
+        if (generaPunti >= 100 - ((livelloPunti + 1) * 10)) {
+            int y_p = (int) (Math.random() * getHeight());
+            PuntiVettore.add(new Punti(PlayFrame.instance.getWidth(), y_p));
+            generaPunti = 0;
+        }
     }
 }
