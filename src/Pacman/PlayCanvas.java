@@ -20,8 +20,12 @@ public class PlayCanvas extends java.awt.Canvas
     public int getScrollPosition() {
         return scrollPosition;
     }
+    public int getScrollPosition2() {
+        return scrollPosition2;
+    }
 
     private int scrollPosition = 0;
+    private int scrollPosition2 = 0;
     private int livelloPunti;
     private int generaPunti;
     private Vector<Punti> PuntiVettore;
@@ -55,6 +59,7 @@ public class PlayCanvas extends java.awt.Canvas
         buffer.drawImage(sfondo, 0, 0, this);
 
         scrollPosition += 3;
+        scrollPosition2 += 1;
         // draws background according to pacman
         Background.instance.paintImage(buffer);
 
