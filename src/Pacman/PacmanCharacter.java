@@ -14,6 +14,8 @@ public class PacmanCharacter implements ActionListener {
     // images of the sprite
     private Image[] images;
     private int currentImage = 0;
+    public static final int speed = 2;
+    public static final int gameSpeed = 3;
     private int deltaCurrentImage = 1;
     
     // position and movement
@@ -65,23 +67,27 @@ public class PacmanCharacter implements ActionListener {
         return images[currentImage];
     }
 
+    public void paintImage(Graphics2D buffer) {
+        buffer.drawImage(images[currentImage], horiz, vert, null);
+    }
+
     public void handleKeyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                deltaHoriz = -2;
+                deltaHoriz = -speed;
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                deltaHoriz = 2;
+                deltaHoriz = speed;
                 break;
             case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
-                deltaVert = -2;
+                deltaVert = -speed;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
-                deltaVert = 2;
+                deltaVert = speed;
                 break;
             // case KeyEvent.VK_SPACE: - future
         }

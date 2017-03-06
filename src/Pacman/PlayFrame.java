@@ -25,6 +25,10 @@ public class PlayFrame extends JFrame implements KeyListener{
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    /**
+     * Updates pacman movement and override
+     * @param e
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         PacmanCharacter.instance.handleKeyPressed(e);
