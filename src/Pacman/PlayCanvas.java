@@ -5,18 +5,27 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import Pacman.Punti;
 
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
 
     public static PlayCanvas instance = new PlayCanvas();
-
+    private int livelloPunti;
+    private int generaPunti;
+    private Vector<Punti> PuntiVettore;
     private Timer timer; // timeout
 
     private PlayCanvas() {
+    	
+    	PuntiVettore=new Vector<Punti>();
+        livelloPunti=1;
+        generaPunti=0;
         // start timer timeout
         timer = new Timer(4, this);
         timer.start();
@@ -43,7 +52,14 @@ public class PlayCanvas extends java.awt.Canvas
                 PacmanCharacter.instance.getHoriz(),
                 PacmanCharacter.instance.getVert(),
                 this);
-
+        
+        
+        //Gesione punti
+        for (int i=0;i<PuntiVettore.size();i++){
+            Punti p=(Punti)PuntiVettore.get(i);
+            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
+        
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(workspace, 0, 0, this);
@@ -54,13 +70,25 @@ public class PlayCanvas extends java.awt.Canvas
     //Timer
     @Override
     public void actionPerformed(ActionEvent e) {
+    	creaPunti();
+    	for (int i=0;i<PuntiVettore.size();i++){
+            Punti p=(Punti)PuntiVettore.get(i);
+            if (p.isVisible()) {
+                p.move();
+            }
+            else {
+                PuntiVettore.remove(i);
+            }
+        }
         PacmanCharacter.instance.move();
         repaint();
     }
+    
+    
 
-    private void rilevaCollisioni() {
+    /*private void rilevaCollisioni() {
 
-        /*if (!astronave.isEsplosa()) {
+        if (!astronave.isEsplosa()) {
             Rectangle ra = astronave.getDimensione();
 
             for (int i = 0; i < asteroidi.size(); i++) {
@@ -73,19 +101,19 @@ public class PlayCanvas extends java.awt.Canvas
                 }
             }
 
-        }*/
-
-    }
-
-    /*private void creaAsteroidi() {
-        genera++;
-
-        if (genera >= 100 - ((livello + 1) * 10)) {
-            int x_a = (int) (Math.random() * getWidth());
-            asteroidi.add(new Asteroide(x_a, 0));
-            genera = 0;
         }
 
     }*/
+
+    private void creaPunti() {
+        generaPunti++;
+
+        if (generaPunti >= 100 - ((livelloPunti + 1) * 10)) {
+            int y_p = (int) (Math.random() * getHeight());
+            PuntiVettore.add(new Punti(PlayFrame.instance.getWidth(), y_p));
+            generaPunti = 0;
+        }
+    }
+    
 
 }
