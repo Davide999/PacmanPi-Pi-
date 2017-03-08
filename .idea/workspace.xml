@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8df4d039-ad54-468a-8821-de96c6634e34" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Pacman/Background.java" afterPath="$PROJECT_DIR$/src/Pacman/Background.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Pacman/PacmanCharacter.java" afterPath="$PROJECT_DIR$/src/Pacman/PacmanCharacter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Pacman/PlayCanvas.java" afterPath="$PROJECT_DIR$/src/Pacman/PlayCanvas.java" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,7 +23,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PacmanCharacter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PacmanCharacter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Pacman/PacmanCharacter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="248">
@@ -41,8 +38,8 @@
       <file leaf-file-name="PlayCanvas.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Pacman/PlayCanvas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+            <state relative-caret-position="103">
+              <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
               <folding>
                 <element signature="e#899#900#0" expanded="true" />
                 <element signature="e#936#937#0" expanded="true" />
@@ -51,6 +48,16 @@
                 <element signature="e#1065#1066#0" expanded="true" />
                 <element signature="e#1089#1090#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Background.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Pacman/Background.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="28" column="9" lean-forward="false" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -108,7 +115,11 @@
       <find>move</find>
       <find>buffer</find>
       <find>numImmagine</find>
+      <find>image</find>
     </findStrings>
+    <replaceStrings>
+      <replace>image2</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,11 +135,11 @@
         <option value="$PROJECT_DIR$/src/Pacman/MainPacman.java" />
         <option value="$PROJECT_DIR$/src/Pacman/Sfondi.java" />
         <option value="$PROJECT_DIR$/src/Pacman/PlayFrame.java" />
-        <option value="$PROJECT_DIR$/src/Pacman/Background.java" />
         <option value="$PROJECT_DIR$/src/Pacman/Punti.java" />
         <option value="$PROJECT_DIR$/src/Pacman/Food.java" />
         <option value="$PROJECT_DIR$/src/Pacman/PlayCanvas.java" />
         <option value="$PROJECT_DIR$/src/Pacman/PacmanCharacter.java" />
+        <option value="$PROJECT_DIR$/src/Pacman/Background.java" />
       </list>
     </option>
   </component>
@@ -514,15 +525,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Pacman/PlayCanvas.java</url>
-          <line>105</line>
-          <properties />
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -766,7 +769,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pacman/Background.java" />
     <entry file="jar:///usr/lib/jvm/java-8-openjdk/jre/lib/rt.jar!/java/awt/Component.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="112">
@@ -811,10 +813,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pacman/PacmanCharacter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Pacman/PlayCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
+        <state relative-caret-position="103">
+          <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
             <element signature="e#899#900#0" expanded="true" />
             <element signature="e#936#937#0" expanded="true" />
@@ -826,13 +838,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pacman/PacmanCharacter.java">
+    <entry file="file://$PROJECT_DIR$/src/Pacman/Background.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="158">
+          <caret line="28" column="9" lean-forward="false" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -17,17 +17,15 @@ public class Background {
     private final Image image2 = new ImageIcon(this.getClass()
             .getResource("sprites/background/nuvolette.png"))
             .getImage();
+
     public void paintImage(Graphics2D buffer) {
-    	//1=montagne
-    	//2=nuvolette
-        final int cose = PlayCanvas.instance.getScrollPosition() % PlayFrame.instance.getWidth();
-        final int cose2 = PlayCanvas.instance.getScrollPosition2() % PlayFrame.instance.getWidth();
-        
-        for(int i=0; i<5; i++){
-            int x = -cose+i*image.getWidth(null);
-            if(x+image.getWidth(null)>0) buffer.drawImage(image, x, 175, null);
-            int x2 = -cose2+i*image2.getWidth(null);
-            if(x2+image2.getWidth(null)>0) buffer.drawImage(image2, x, 0, null);
+        int imagePos = -PlayCanvas.instance.getScrollPosition();
+        while(imagePos < -image.getWidth(null)) imagePos += image.getWidth(null);
+        final int numImages = (int) Math.ceil(PlayFrame.instance.getWidth() / image.getWidth(null)) + 2;
+
+        for (int i = 0; i < numImages; i++) {
+            int x = imagePos + i * image.getWidth(null);
+            if (x + image.getWidth(null) > 0) buffer.drawImage(image, x, 175, null);
         }
     }
 }
