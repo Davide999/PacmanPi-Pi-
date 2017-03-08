@@ -16,9 +16,11 @@ public class PlayCanvas extends java.awt.Canvas
     public static PlayCanvas instance = new PlayCanvas();
 
     private int scrollPosition = 0;
+    private int scrollPosition2 = 0;
     private int livelloPunti;
     private int generaPunti;
     private Vector<Food> foodVettore;
+    public final int REFRESH_TIME = 6;
     private Timer timer; // timeout
 
     private PlayCanvas() {
@@ -26,12 +28,16 @@ public class PlayCanvas extends java.awt.Canvas
         livelloPunti = 1;
         generaPunti = 0;
         // start timer timeout
-        timer = new Timer(4, this);
+        timer = new Timer(REFRESH_TIME, this);
         timer.start();
     }
 
     public int getScrollPosition() {
         return scrollPosition;
+    }
+
+    public int getScrollPosition2() {
+        return scrollPosition2;
     }
 
     @Override
@@ -52,6 +58,7 @@ public class PlayCanvas extends java.awt.Canvas
         buffer.drawImage(sfondo, 0, 0, this);
 
         scrollPosition += 1;
+        scrollPosition2 += 1;
         // draws background according to pacman
         Background.instance.paintImage(buffer);
 

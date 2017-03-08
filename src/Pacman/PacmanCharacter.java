@@ -14,8 +14,7 @@ public class PacmanCharacter implements ActionListener {
     // images of the sprite
     private Image[] images;
     private int currentImage = 0;
-    public static final int speed = 2;
-    public static final int gameSpeed = 3;
+    public final int speed = 2;
     private int deltaCurrentImage = 1;
     
     // position and movement
@@ -41,7 +40,7 @@ public class PacmanCharacter implements ActionListener {
         height = images[0].getHeight(null);
 
         // start timer timeout
-        Timer timer = new Timer(30, this);
+        Timer timer = new Timer(33, this);
         timer.start();
     }
 
