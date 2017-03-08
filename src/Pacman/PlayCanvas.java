@@ -10,31 +10,28 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-import Pacman.Punti;
-
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
 
     public static PlayCanvas instance = new PlayCanvas();
 
-    public int getScrollPosition() {
-        return scrollPosition;
-    }
-
     private int scrollPosition = 0;
     private int livelloPunti;
     private int generaPunti;
-    private Vector<Punti> PuntiVettore;
+    private Vector<Food> foodVettore;
     private Timer timer; // timeout
 
     private PlayCanvas() {
-    	
-    	PuntiVettore=new Vector<Punti>();
-        livelloPunti=1;
-        generaPunti=0;
+        foodVettore = new Vector<>();
+        livelloPunti = 1;
+        generaPunti = 0;
         // start timer timeout
         timer = new Timer(4, this);
         timer.start();
+    }
+
+    public int getScrollPosition() {
+        return scrollPosition;
     }
 
     @Override
@@ -50,21 +47,20 @@ public class PlayCanvas extends java.awt.Canvas
         Image workspace = createImage(getWidth(), getHeight());
         Graphics2D buffer = (Graphics2D) workspace.getGraphics();
 
-        //si disegnano gli elementi nel buffer esterno  
+        //si disegnano gli elementi nel buffer esterno
         Image sfondo = new ImageIcon(this.getClass().getResource("sprites/background/bup.png")).getImage();
         buffer.drawImage(sfondo, 0, 0, this);
 
-        scrollPosition += 3;
+        scrollPosition += 1;
         // draws background according to pacman
         Background.instance.paintImage(buffer);
 
         // moves pacman and draws it
         PacmanCharacter.instance.move();
         PacmanCharacter.instance.paintImage(buffer);
-        
+
         //Gesione punti
-        for (int i=0;i<PuntiVettore.size();i++){
-            Punti p=(Punti)PuntiVettore.get(i);
+        for (Food p : foodVettore) {
             buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
 
@@ -83,14 +79,13 @@ public class PlayCanvas extends java.awt.Canvas
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-    	creaPunti();
-    	for (int i=0;i<PuntiVettore.size();i++){
-            Punti p=(Punti)PuntiVettore.get(i);
+        creaPunti();
+        for (int i = 0; i < foodVettore.size(); i++) {
+            Food p = foodVettore.get(i);
             if (p.isVisible()) {
                 p.move();
-            }
-            else {
-                PuntiVettore.remove(i);
+            } else {
+                foodVettore.remove(i);
             }
         }
         PacmanCharacter.instance.move();
@@ -100,8 +95,9 @@ public class PlayCanvas extends java.awt.Canvas
     private void creaPunti() {
         generaPunti++;
         if (generaPunti >= 100 - ((livelloPunti + 1) * 10)) {
-            int y_p = (int) (Math.random() * getHeight());
-            PuntiVettore.add(new Punti(PlayFrame.instance.getWidth(), y_p));
+            int y_p = (int) (Math.random() * PlayFrame.instance.getHeight());
+            Food f = new Food(PlayFrame.instance.getWidth(), y_p);
+            foodVettore.add(f);
             generaPunti = 0;
         }
     }
