@@ -29,9 +29,12 @@ public class Menu extends Canvas implements ActionListener {
     public Menu() {
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
-        JButton b=new JButton("Start Game");
-        b.setBounds(150,100,300, 50);
-        f.add(b);
+        JButton start=new JButton("Start Game");
+        start.setBounds(150,100,300, 50);
+        f.add(start);
+        JButton esci=new JButton("Exit");
+        esci.setBounds(150,175,300, 50);
+        f.add(esci);
         f.setSize(600, 400);
         f.setResizable(false);
         f.setLocation(100, 100);
@@ -61,8 +64,8 @@ public class Menu extends Canvas implements ActionListener {
         Graphics buffer = workspace.getGraphics();
 
         //si disegnano gli elementi nel buffer esterno
-        buffer.setColor(new Color(255, 0, 0));
-        buffer.fillRect(0, 0, 100, 100);
+        buffer.setColor(new Color(0, 0, 0));
+        buffer.fillRect(0, 0, 600, 400);
         //Image img=getToolkit().getImage("image/montagne.png");
         //buffer.drawImage(img, 0, 0, this);
 
