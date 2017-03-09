@@ -17,11 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- * Caricamento di immagini
- *
- * @author depietro
- */
+
+
 public class Menu extends Canvas implements ActionListener {
 
     private Image robot[];
@@ -32,12 +29,19 @@ public class Menu extends Canvas implements ActionListener {
     public Menu() {
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
+        JButton b=new JButton("Start Game");
+        b.setBounds(150,100,300, 50);
+        f.add(b);
         f.setSize(600, 400);
         f.setResizable(false);
         f.setLocation(100, 100);
         f.add(this);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
+
+
+
+
 
         //timer
         timer = new Timer(20, this);
@@ -75,4 +79,6 @@ public class Menu extends Canvas implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
+
+
 }
