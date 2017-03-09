@@ -17,6 +17,8 @@ public class PlayCanvas extends java.awt.Canvas
 
     private int scrollPosition = 0;
     private int scrollPosition2 = 0;
+    private int scrollPosition3 = 0;
+    private int scrollPosition4 = 0;
     private int livelloPunti;
     private int generaPunti;
     private Vector<Food> foodVettore;
@@ -40,6 +42,14 @@ public class PlayCanvas extends java.awt.Canvas
         return scrollPosition2;
     }
 
+    public int getScrollPosition3() {
+        return scrollPosition3;
+    }
+    
+    public int getScrollPosition4() {
+        return scrollPosition4;
+    }
+
     @Override
     public void update(Graphics g) {
         paint(g);
@@ -57,8 +67,10 @@ public class PlayCanvas extends java.awt.Canvas
         Image sfondo = new ImageIcon(this.getClass().getResource("sprites/background/bup.png")).getImage();
         buffer.drawImage(sfondo, 0, 0, this);
 
-        scrollPosition += 1;
-        scrollPosition2 += 1;
+        scrollPosition += 3;
+        scrollPosition2 += 2;
+        scrollPosition3 += 1;
+        scrollPosition4 += 3;
         // draws background according to pacman
         Background.instance.paintImage(buffer);
 
