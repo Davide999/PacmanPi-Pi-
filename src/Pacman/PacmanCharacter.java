@@ -71,6 +71,26 @@ public class PacmanCharacter implements ActionListener {
     }
 
     public void handleKeyPressed(KeyEvent e) {
+    	if(horiz<10)
+    	{
+    		deltaHoriz=0;
+    		horiz=10;
+    	}
+    	if(horiz>PlayFrame.instance.getWidth()-width)
+    	{
+    		deltaHoriz=0;
+    		horiz=PlayFrame.instance.getWidth()-width;
+    	}
+    	if(vert<10)
+    	{
+    		deltaVert=0;
+    		vert=10;
+    	}
+    	if(vert>PlayFrame.instance.getHeight()-height)
+    	{
+    		deltaVert=0;
+    		vert=PlayFrame.instance.getHeight()-height;
+    	}
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
@@ -88,11 +108,31 @@ public class PacmanCharacter implements ActionListener {
             case KeyEvent.VK_S:
                 deltaVert = speed;
                 break;
-            // case KeyEvent.VK_SPACE: - future
+            // case KeyEvent.VK_SPACE: - future                        
         }
     }
 
     public void handleKeyReleased(KeyEvent e) {
+    	if(horiz<10)
+    	{
+    		deltaHoriz=0;
+    		horiz=10;
+    	}
+    	if(horiz>PlayFrame.instance.getWidth()-width)
+    	{
+    		deltaHoriz=0;
+    		horiz=PlayFrame.instance.getWidth()-width;
+    	}
+    	if(vert<10)
+    	{
+    		deltaVert=0;
+    		vert=10;
+    	}
+    	if(vert>PlayFrame.instance.getHeight()-height)
+    	{
+    		deltaVert=0;
+    		vert=PlayFrame.instance.getHeight()-height;
+    	}
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_RIGHT:
