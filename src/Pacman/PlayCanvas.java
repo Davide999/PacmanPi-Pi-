@@ -3,12 +3,16 @@ package Pacman;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import Collisioni.Asteroide;
+import Collisioni.Esplosione;
 
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
@@ -98,6 +102,7 @@ public class PlayCanvas extends java.awt.Canvas
      */
     @Override
     public void actionPerformed(ActionEvent e) {
+    	PacmanCharacter.instance.move();
         creaPunti();
         for (int i = 0; i < foodVettore.size(); i++) {
             Food p = foodVettore.get(i);
@@ -107,8 +112,12 @@ public class PlayCanvas extends java.awt.Canvas
                 foodVettore.remove(i);
             }
         }
-        PacmanCharacter.instance.move();
+        rilevaCollisioni();
         repaint();
+    }
+    
+    private void rilevaCollisioni() {
+    
     }
 
     private void creaPunti() {

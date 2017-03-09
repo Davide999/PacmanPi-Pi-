@@ -18,7 +18,7 @@ public class Food {
     private final static int VELOCITA_PUNTI = -4;
 
     public Food(int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("../images/asteroide1.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/punti/food.png"));
         image = ii.getImage();
         visible = true;
         this.x = x;
