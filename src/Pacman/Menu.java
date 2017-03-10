@@ -30,10 +30,30 @@ public class Menu extends Canvas implements ActionListener {
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
         JButton start=new JButton("Start Game");
+
+        //buttons
         start.setBounds(150,100,300, 50);
         f.add(start);
         JButton esci=new JButton("Exit");
         esci.setBounds(150,175,300, 50);
+        esci.setBackground(Color.BLACK);
+        start.setBackground(Color.BLACK);
+        start.setForeground(Color.WHITE);
+        esci.setForeground(Color.WHITE);
+        //operation buttons
+        start.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.setVisible(false);
+                PlayFrame.init();
+            }
+        });
+        esci.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);//close
+            }
+        });
         f.add(esci);
         f.setSize(600, 400);
         f.setResizable(false);
@@ -41,12 +61,7 @@ public class Menu extends Canvas implements ActionListener {
         f.add(this);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
-
-
-
-
-
-        //timer
+      //timer
         timer = new Timer(20, this);
         timer.start();
     }

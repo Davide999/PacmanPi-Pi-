@@ -40,4 +40,3 @@ Icon?
 *.sock
 
 # ZSH Cake plugin cache
-/.cake_task_cache
