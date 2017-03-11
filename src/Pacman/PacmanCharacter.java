@@ -24,6 +24,7 @@ public class PacmanCharacter implements ActionListener {
     private int deltaVert = 0;
     private int width;
     private int height;
+    private boolean morto=false;
 
     private PacmanCharacter() {
         // number of images for the sprite
@@ -154,5 +155,17 @@ public class PacmanCharacter implements ActionListener {
         if(currentImage == images.length-1) deltaCurrentImage = -1;
         if(currentImage == 0) deltaCurrentImage = 1;
         currentImage += deltaCurrentImage;
+    }
+    
+    public boolean isEsplosa() {
+        return morto;
+    }
+    
+    public void setMorte(boolean morto) {
+        this.morto = morto;
+    }
+    
+    public Rectangle getDimensione(){
+        return new Rectangle(horiz,vert,width,height);
     }
 }

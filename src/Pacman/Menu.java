@@ -21,21 +21,19 @@ import javax.swing.*;
 
 public class Menu extends Canvas implements ActionListener {
 
-    private Image robot[];
-    private int x, y;
-    private Timer timer;
-    private int numImmagine;
-
     public Menu() {
+    	
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
         JButton start=new JButton("Start Game");
-
+        int larghezza=300;
+        int altezza=50;
+        
         //buttons
-        start.setBounds(150,100,300, 50);
+        start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/3)),larghezza, altezza);
         f.add(start);
         JButton esci=new JButton("Exit");
-        esci.setBounds(150,175,300, 50);
+        esci.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2),larghezza, altezza);
         esci.setBackground(Color.BLACK);
         start.setBackground(Color.BLACK);
         start.setForeground(Color.WHITE);
@@ -55,15 +53,12 @@ public class Menu extends Canvas implements ActionListener {
             }
         });
         f.add(esci);
-        f.setSize(600, 400);
+        f.setSize(1000, 500);
         f.setResizable(false);
         f.setLocation(100, 100);
         f.add(this);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.setVisible(true);
-      //timer
-        timer = new Timer(20, this);
-        timer.start();
     }
 
     @Override
@@ -86,8 +81,7 @@ public class Menu extends Canvas implements ActionListener {
 
         //si visualizza l'immagine del buffer esterno
         //avendo disegnato su uno spazio esterno si disegna l0immagine già pronta, eliminando di fatto lo sfarfallio
-        //Graphics2D g2=(Graphics2D)g;
-        g.drawImage(workspace, 0, 0, this);
+
 
         //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
         buffer.dispose();
@@ -97,6 +91,5 @@ public class Menu extends Canvas implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
-
 
 }

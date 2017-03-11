@@ -18,13 +18,14 @@ public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
 
     public static PlayCanvas instance = new PlayCanvas();
-
+    private PacmanCharacter pacmanCharacter;
     private int scrollPosition = 0;
     private int scrollPosition2 = 0;
     private int scrollPosition3 = 0;
     private int scrollPosition4 = 0;
     private int livelloPunti;
     private int generaPunti;
+    private Esplosione esplosione;
     private Vector<Food> foodVettore;
     public final int REFRESH_TIME = 6;
     private Timer timer; // timeout
@@ -117,8 +118,20 @@ public class PlayCanvas extends java.awt.Canvas
     }
     
     private void rilevaCollisioni() {
+    	/*if (!pacmanCharacter.isEsplosa()){
+            Rectangle ra=pacmanCharacter.getDimensione();
+     
+             for (int i=0;i<foodVettore.size();i++){
+                Food p=foodVettore.get(i);
+                Rectangle rs=p.getDimensione();
+               if (ra.intersects(rs)){
+            	   pacmanCharacter.setMorte(true);
+                   esplosione=new Esplosione(astronave.getX(), astronave.getY());
+               }
+       }
     
-    }
+     }*/
+}
 
     private void creaPunti() {
         generaPunti++;
