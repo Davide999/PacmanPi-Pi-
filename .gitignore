@@ -40,3 +40,5 @@ Icon?
 *.sock
 
 # ZSH Cake plugin cache
+
+.idea/
