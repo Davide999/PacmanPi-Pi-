@@ -42,7 +42,7 @@ public class Spazio extends Canvas implements ActionListener, KeyListener{
         genera=0;
         
         //timer
-        timer=new Timer(4, this);
+        timer=new Timer(7, this);
         timer.start();
         
     }

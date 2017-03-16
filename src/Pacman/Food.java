@@ -15,10 +15,10 @@ public class Food {
     private int larghezza;
     private int altezza;
 
-    private final static int VELOCITA_PUNTI = -3;
+    private final static int VELOCITA_PUNTI = -4;
 
     public Food(int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("../images/asteroide1.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/punti/food.png"));
         image = ii.getImage();
         visible = true;
         this.x = x;
