@@ -1,44 +1,47 @@
-/bin/
-# Node.js with Express and Stlyus
-public/css/*.css
-public/css/main/*.css
-public/css/admin/*.css
-/.monitor
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# Eclipse
-/.project
-/.settings
-/.buildpath
+# User-specific stuff:
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
 
-# Sublime
-*.sublime-project
-*.sublime-workspace
+# Sensitive or high-churn files:
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.xml
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
 
-# Windows
-Thumbs.db
+# Gradle:
+.idea/**/gradle.xml
+.idea/**/libraries
 
-# Ignore this in Clock Harness projects because it is created by the build system.
-/Config/vhost.conf
+# Mongo Explorer plugin:
+.idea/**/mongoSettings.xml
 
-# Vim
-.*.sw[a-z]
-*.un~i
-tags
+## File-based project format:
+*.iws
 
-# OsX
-.DS_Store
-Icon?
-._*
-.Spotlight-V100
-.Trashes
+## Plugin-specific files:
 
-# nodejs npm modules
-/node_modules
+# IntelliJ
+/out/
 
-# node-cluster
-/pids
-*.sock
+# mpeltonen/sbt-idea plugin
+.idea_modules/
 
-# ZSH Cake plugin cache
+# JIRA plugin
+atlassian-ide-plugin.xml
 
-.idea/
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+.directory

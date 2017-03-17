@@ -3,7 +3,6 @@ package Pacman;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -11,31 +10,27 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-import Collisioni.Asteroide;
-import Collisioni.Esplosione;
-
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
 
     public static PlayCanvas instance = new PlayCanvas();
-    private PacmanCharacter pacmanCharacter;
+
     private int scrollPosition = 0;
     private int scrollPosition2 = 0;
     private int scrollPosition3 = 0;
     private int scrollPosition4 = 0;
     private int livelloPunti;
     private int generaPunti;
-    private Esplosione esplosione;
+
     private Vector<Food> foodVettore;
-    public final int REFRESH_TIME = 6;
-    private Timer timer; // timeout
+    private final int REFRESH_TIME = 6;
 
     private PlayCanvas() {
         foodVettore = new Vector<>();
         livelloPunti = 1;
         generaPunti = 0;
         // start timer timeout
-        timer = new Timer(REFRESH_TIME, this);
+        Timer timer = new Timer(REFRESH_TIME, this);
         timer.start();
     }
 
@@ -50,7 +45,7 @@ public class PlayCanvas extends java.awt.Canvas
     public int getScrollPosition3() {
         return scrollPosition3;
     }
-    
+
     public int getScrollPosition4() {
         return scrollPosition4;
     }
@@ -103,7 +98,7 @@ public class PlayCanvas extends java.awt.Canvas
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-    	PacmanCharacter.instance.move();
+        PacmanCharacter.instance.move();
         creaPunti();
         for (int i = 0; i < foodVettore.size(); i++) {
             Food p = foodVettore.get(i);
@@ -113,25 +108,8 @@ public class PlayCanvas extends java.awt.Canvas
                 foodVettore.remove(i);
             }
         }
-        rilevaCollisioni();
         repaint();
     }
-    
-    private void rilevaCollisioni() {
-    	/*if (!pacmanCharacter.isEsplosa()){
-            Rectangle ra=pacmanCharacter.getDimensione();
-     
-             for (int i=0;i<foodVettore.size();i++){
-                Food p=foodVettore.get(i);
-                Rectangle rs=p.getDimensione();
-               if (ra.intersects(rs)){
-            	   pacmanCharacter.setMorte(true);
-                   esplosione=new Esplosione(astronave.getX(), astronave.getY());
-               }
-       }
-    
-     }*/
-}
 
     private void creaPunti() {
         generaPunti++;
