@@ -20,15 +20,22 @@ public class PlayCanvas extends java.awt.Canvas
     private int scrollPosition3 = 0;
     private int scrollPosition4 = 0;
     private int livelloPunti;
+    private int livelloOstacoli;
     private int generaPunti;
 
+    private int generaOstacoli;
     private Vector<Food> foodVettore;
-    private final int REFRESH_TIME = 6;
+    private Vector<Ostacoli> OstacoliVettore;
+    public final int REFRESH_TIME = 6;
+    private Timer timer; // timeout
 
     private PlayCanvas() {
         foodVettore = new Vector<>();
+        OstacoliVettore = new Vector<>();
         livelloPunti = 1;
         generaPunti = 0;
+        livelloOstacoli = 1;
+        generaOstacoli = 0;
         // start timer timeout
         Timer timer = new Timer(REFRESH_TIME, this);
         timer.start();
@@ -82,6 +89,11 @@ public class PlayCanvas extends java.awt.Canvas
         for (Food p : foodVettore) {
             buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
+        
+      //Gesione ostacoli
+        for (Ostacoli p : OstacoliVettore) {
+            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
@@ -100,12 +112,21 @@ public class PlayCanvas extends java.awt.Canvas
     public void actionPerformed(ActionEvent e) {
         PacmanCharacter.instance.move();
         creaPunti();
+        creaOstacoli();
         for (int i = 0; i < foodVettore.size(); i++) {
             Food p = foodVettore.get(i);
             if (p.isVisible()) {
                 p.move();
             } else {
                 foodVettore.remove(i);
+            }
+        }
+        for (int j = 0; j < OstacoliVettore.size(); j++) {
+            Ostacoli o = OstacoliVettore.get(j);
+            if (o.isVisible()) {
+                o.move();
+            } else {
+                OstacoliVettore.remove(j);
             }
         }
         repaint();
@@ -118,6 +139,16 @@ public class PlayCanvas extends java.awt.Canvas
             Food f = new Food(PlayFrame.instance.getWidth(), y_p);
             foodVettore.add(f);
             generaPunti = 0;
+        }
+    }
+    
+    private void creaOstacoli() {
+        generaOstacoli++;
+        if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * 10)) {
+            int y_o = (int) (Math.random() * PlayFrame.instance.getHeight());
+            Ostacoli o = new Ostacoli(PlayFrame.instance.getWidth(), y_o);
+            OstacoliVettore.add(o);
+            generaOstacoli = 0;
         }
     }
 }
