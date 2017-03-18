@@ -92,6 +92,11 @@ public class PlayCanvas extends java.awt.Canvas
         for (Food p : foodVettore) {
             buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
+        
+      //Gesione ostacoli
+        for (Ostacoli p : OstacoliVettore) {
+            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;

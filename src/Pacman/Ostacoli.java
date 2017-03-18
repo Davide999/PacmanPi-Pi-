@@ -18,7 +18,7 @@ public class Ostacoli {
     private final static int VELOCITA_OSTACOLI = -4;
 
     public Ostacoli(int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/blocchi/blocchi.png"));
         image = ii.getImage();
         visible = true;
         this.x = x;
