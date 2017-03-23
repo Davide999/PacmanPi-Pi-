@@ -49,7 +49,7 @@ public class Food {
 
     public void move() {
         x += VELOCITA_PUNTI;
-        if (x < 0)
+        if (x < -70)
             visible = false;
     }
 

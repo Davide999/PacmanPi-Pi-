@@ -49,7 +49,7 @@ public class Ostacoli {
 
     public void move() {
         x += VELOCITA_OSTACOLI;
-        if (x < 0)
+        if (x < -70)
             visible = false;
     }
 
