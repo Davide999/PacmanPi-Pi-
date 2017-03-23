@@ -26,14 +26,17 @@ public class Menu extends Canvas implements ActionListener {
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
         JButton start=new JButton("Start Game");
-        int larghezza=300;
-        int altezza=50;
+        int w=1000;
+        int h=500;
+        int larghezza=(int)w*50/100;
+        int altezza=(int)h*75/500;
+        
         
         //buttons
-        start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/3)),larghezza, altezza);
+        start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5)),larghezza, altezza);
         f.add(start);
         JButton esci=new JButton("Exit");
-        esci.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2),larghezza, altezza);
+        esci.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5))+2*altezza,larghezza, altezza);
         esci.setBackground(Color.BLACK);
         start.setBackground(Color.BLACK);
         start.setForeground(Color.WHITE);
@@ -53,7 +56,7 @@ public class Menu extends Canvas implements ActionListener {
             }
         });
         f.add(esci);
-        f.setSize(1000, 500);
+        f.setSize(w, h);
         f.setResizable(false);
         f.setLocation(100, 100);
         f.add(this);
