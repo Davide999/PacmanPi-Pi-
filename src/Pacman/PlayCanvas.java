@@ -43,8 +43,12 @@ public class PlayCanvas extends java.awt.Canvas
         livelloOstacoli = 1;
         generaOstacoli = 0;
         // start timer timeout
-        Timer timer = new Timer(REFRESH_TIME, this);
+        timer = new Timer(REFRESH_TIME, this);
         timer.start();
+    }
+
+    public void stopGame(){
+        timer.stop();
     }
 
     public int getScrollPosition() {
@@ -178,7 +182,6 @@ public class PlayCanvas extends java.awt.Canvas
                     generaOstacoli = 0;
         		}
         	}
-            //int y_o = (int) (Math.random() * PlayFrame.instance.getHeight());   
         }
     }
     

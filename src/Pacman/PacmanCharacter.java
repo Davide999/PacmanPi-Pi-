@@ -56,6 +56,7 @@ public class PacmanCharacter implements ActionListener {
         vert += deltaVert;
 
         Vector<Food> foodVector = PlayCanvas.instance.getFoodVector();
+        Vector<Obstacle> obstacleVector = PlayCanvas.instance.getObstacleVector();
 
         Rectangle pacmanRect = getDimensionRectangle();
 
@@ -64,6 +65,13 @@ public class PacmanCharacter implements ActionListener {
                 foodVector.remove(f);
                 points += 10;
                 System.out.println(points);
+                break;
+            }
+        }
+
+        for (Obstacle o : obstacleVector) {
+            if(o.getDimensionRectangle().intersects(pacmanRect)) {
+                die();
                 break;
             }
         }
@@ -175,7 +183,8 @@ public class PacmanCharacter implements ActionListener {
         return morto;
     }
     
-    public void setMorte(boolean morto) {
-        this.morto = morto;
+    public void die() {
+        this.morto = true;
+        PlayCanvas.instance.stopGame();
     }
 }
