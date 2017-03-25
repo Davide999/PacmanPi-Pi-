@@ -21,13 +21,14 @@ import javax.swing.*;
 
 public class Menu extends Canvas implements ActionListener {
 
+    private final int w=1000;
+    private final int h=500;
+
     public Menu() {
     	
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
         JButton start=new JButton("Start Game");
-        int w=1000;
-        int h=500;
         int larghezza=(int)w*50/100;
         int altezza=(int)h*75/500;
         
@@ -71,23 +72,9 @@ public class Menu extends Canvas implements ActionListener {
 
     @Override
     public void paint(Graphics g) {
-        //si gestisce lo spazio da memorizzare nel buffer, ricavandolo da tutta l'ara visualizzabile
-        //in poche parole si crea uno spazio virtuale per l'immagine
-        Image workspace = createImage(getWidth(), getHeight());
-        Graphics buffer = workspace.getGraphics();
-
-        //si disegnano gli elementi nel buffer esterno
-        buffer.setColor(new Color(0, 0, 0));
-        buffer.fillRect(0, 0, 600, 400);
-        //Image img=getToolkit().getImage("image/montagne.png");
-        //buffer.drawImage(img, 0, 0, this);
-
-        //si visualizza l'immagine del buffer esterno
-        //avendo disegnato su uno spazio esterno si disegna l0immagine già pronta, eliminando di fatto lo sfarfallio
-
-
-        //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
-        buffer.dispose();
+        // The background. It works, ok?
+        g.setColor(new Color(0, 0, 0));
+        g.fillRect(0, 0, w, h);
     }
 
     @Override
