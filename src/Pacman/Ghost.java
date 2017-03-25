@@ -15,9 +15,10 @@ public class Ghost {
     private int larghezza;
     private int altezza;
 
-    private final static int VELOCITA_FANTASMI = -4;
+    private final static int VELOCITA_FANTASMI = -6;
 
     public Ghost(int x, int y) {
+        Object o = this.getClass().getResource("sprites/ghost/ghost1.png");
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
         image = ii.getImage();
         visible = true;

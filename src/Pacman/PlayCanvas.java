@@ -40,6 +40,7 @@ public class PlayCanvas extends java.awt.Canvas
     private PlayCanvas() {
         foodVector = new Vector<>();
         obstacleVector = new Vector<>();
+        ghostVector = new Vector<>();
         livelloPunti = 1;
         generaPunti = 0;
         livelloOstacoli = 1;
@@ -115,6 +116,11 @@ public class PlayCanvas extends java.awt.Canvas
             buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
 
+        //Gesione fantasmi
+        for (Ghost p : ghostVector) {
+            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
+        }
+
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(workspace, 0, 0, this);
@@ -149,6 +155,14 @@ public class PlayCanvas extends java.awt.Canvas
                 o.move();
             } else {
                 obstacleVector.remove(j);
+            }
+        }
+        for (int j = 0; j < ghostVector.size(); j++) {
+            Ghost o = ghostVector.get(j);
+            if (o.isVisible()) {
+                o.move();
+            } else {
+                ghostVector.remove(j);
             }
         }
         repaint();
