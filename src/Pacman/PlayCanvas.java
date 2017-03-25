@@ -26,17 +26,17 @@ public class PlayCanvas extends java.awt.Canvas
     final private int YDistanzaOstacoli=80; //la distanza verticale tra un ostacolo e l'altro
     final private int YDistanzaBase=30;	//la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli=1; //il rateo con cui appaiono gli ostacoli: pi� basso=pi� distanti
-    private int tempoPassato=0;
-    
+
     private int generaOstacoli;
-    private Vector<Food> foodVettore;
+
+    private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
     private int schemaOstacoli[][]={{1,1,2,1,0,1},{1,1,2,1,1,0},{2,1,1,1,1,0},{1,0,1,2,1,1},{0,1,1,1,2,1}};
     public final int REFRESH_TIME = 6;
     private Timer timer; // timeout
 
     private PlayCanvas() {
-        foodVettore = new Vector<>();
+        foodVector = new Vector<>();
         obstacleVector = new Vector<>();
         livelloPunti = 1;
         generaPunti = 0;
@@ -61,6 +61,14 @@ public class PlayCanvas extends java.awt.Canvas
 
     public int getScrollPosition4() {
         return scrollPosition4;
+    }
+
+    public Vector<Food> getFoodVector() {
+        return foodVector;
+    }
+
+    public Vector<Obstacle> getObstacleVector() {
+        return obstacleVector;
     }
 
     @Override
@@ -88,15 +96,15 @@ public class PlayCanvas extends java.awt.Canvas
         Background.instance.paintImage(buffer);
 
         // moves pacman and draws it
-        PacmanCharacter.instance.move();
+        PacmanCharacter.instance.moveAndHandleCollisions();
         PacmanCharacter.instance.paintImage(buffer);
 
         //Gesione punti
-        for (Food p : foodVettore) {
+        for (Food p : foodVector) {
             buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
         
-      //Gesione ostacoli
+        //Gesione ostacoli
         for (Obstacle p : obstacleVector) {
             buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
         }
@@ -116,16 +124,16 @@ public class PlayCanvas extends java.awt.Canvas
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        PacmanCharacter.instance.move();
+        PacmanCharacter.instance.moveAndHandleCollisions();
         randomOstacoli=(int) Math.floor(Math.random()*5);
         creaPunti();
         creaOstacoli();
-        for (int i = 0; i < foodVettore.size(); i++) {
-            Food p = foodVettore.get(i);
+        for (int i = 0; i < foodVector.size(); i++) {
+            Food p = foodVector.get(i);
             if (p.isVisible()) {
                 p.move();
             } else {
-                foodVettore.remove(i);
+                foodVector.remove(i);
             }
         }
         for (int j = 0; j < obstacleVector.size(); j++) {
@@ -149,7 +157,7 @@ public class PlayCanvas extends java.awt.Canvas
         		{
 		            int y_p = (int) (j*YDistanzaOstacoli+YDistanzaBase);
 		            Food f = new Food(PlayFrame.instance.getWidth(), y_p);
-		            foodVettore.add(f);
+		            foodVector.add(f);
 		            generaPunti = 0;
         		}
         	}
@@ -164,7 +172,7 @@ public class PlayCanvas extends java.awt.Canvas
         	{    		
         		if(schemaOstacoli[randomOstacoli][j]==1)
         		{
-        			int y_o = (int) (j*YDistanzaOstacoli+YDistanzaBase);
+        			int y_o = j*YDistanzaOstacoli+YDistanzaBase;
             		Obstacle o = new Obstacle(PlayFrame.instance.getWidth(), y_o);
                     obstacleVector.add(o);
                     generaOstacoli = 0;

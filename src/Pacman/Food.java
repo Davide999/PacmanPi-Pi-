@@ -27,7 +27,7 @@ public class Food {
         altezza = image.getHeight(null);
     }
 
-    public Rectangle getDimensione() {
+    public Rectangle getDimensionRectangle() {
         return new Rectangle(x, y, larghezza, altezza);
     }
 

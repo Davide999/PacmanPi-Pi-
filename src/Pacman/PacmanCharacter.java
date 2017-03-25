@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 
 public class PacmanCharacter implements ActionListener {
 
@@ -15,6 +16,7 @@ public class PacmanCharacter implements ActionListener {
     private Image[] images;
     private int currentImage = 0;
     public final int speed = 2;
+    private int points = 0;
     private int deltaCurrentImage = 1;
     
     // position and movement
@@ -49,10 +51,22 @@ public class PacmanCharacter implements ActionListener {
         return new Rectangle(horiz, vert, width, height);
     }
 
-
-    public void move() {
+    public void moveAndHandleCollisions() {
         horiz += deltaHoriz;
         vert += deltaVert;
+
+        Vector<Food> foodVector = PlayCanvas.instance.getFoodVector();
+
+        Rectangle pacmanRect = getDimensionRectangle();
+
+        for (Food f : foodVector) {
+            if(f.getDimensionRectangle().intersects(pacmanRect)) {
+                foodVector.remove(f);
+                points += 10;
+                System.out.println(points);
+                break;
+            }
+        }
     }
 
     public int getHoriz() {
@@ -163,9 +177,5 @@ public class PacmanCharacter implements ActionListener {
     
     public void setMorte(boolean morto) {
         this.morto = morto;
-    }
-    
-    public Rectangle getDimensione(){
-        return new Rectangle(horiz,vert,width,height);
     }
 }
