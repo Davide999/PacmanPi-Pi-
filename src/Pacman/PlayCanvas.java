@@ -21,17 +21,19 @@ public class PlayCanvas extends java.awt.Canvas
     private int scrollPosition4 = 0;
     private int livelloPunti;
     private int livelloOstacoli;
+    private int livelloFantasmi;
     private int generaPunti;
+    private int generaOstacoli;
+    private int generaFantasmi;
     private int randomOstacoli;
     final private int YDistanzaOstacoli=80; //la distanza verticale tra un ostacolo e l'altro
     final private int YDistanzaBase=30;	//la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli=1; //il rateo con cui appaiono gli ostacoli: pi� basso=pi� distanti
 
-    private int generaOstacoli;
-
     private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
-    private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0}};
+    private Vector<Fantasmi> fantasmiVector;
+    private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0},{0,0,3,0,0,0},{0,0,0,0,3,0}};
     public final int REFRESH_TIME = 8;
     private Timer timer; // timeout
 
@@ -129,9 +131,10 @@ public class PlayCanvas extends java.awt.Canvas
     @Override
     public void actionPerformed(ActionEvent e) {
         PacmanCharacter.instance.moveAndHandleCollisions();
-        randomOstacoli=(int) Math.floor(Math.random()*5);
+        randomOstacoli=(int) Math.floor(Math.random()*schemaOstacoli.length);
         creaPunti();
         creaOstacoli();
+        creaFantasmi();
         for (int i = 0; i < foodVector.size(); i++) {
             Food p = foodVector.get(i);
             if (p.isVisible()) {
@@ -155,7 +158,7 @@ public class PlayCanvas extends java.awt.Canvas
         generaPunti++;
         if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli)) {
         	
-        	for(int j=0;j<6;j++)
+        	for(int j=0;j<schemaOstacoli.length-1;j++)
         	{    		
         		if(schemaOstacoli[randomOstacoli][j]==2)
         		{
@@ -172,7 +175,7 @@ public class PlayCanvas extends java.awt.Canvas
         generaOstacoli++;
         if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli)) {
         	
-        	for(int j=0;j<6;j++)
+        	for(int j=0;j<schemaOstacoli.length-1;j++)
         	{    		
         		if(schemaOstacoli[randomOstacoli][j]==1)
         		{
@@ -182,6 +185,24 @@ public class PlayCanvas extends java.awt.Canvas
                     generaOstacoli = 0;
         		}
         	}
+        }
+    }
+    
+    private void creaFantasmi() {
+        generaFantasmi++;
+        if (generaFantasmi >= 100 - ((livelloFantasmi + 1) * rateoOstacoli)) {
+        	
+        	for(int j=0;j<schemaOstacoli.length-1;j++)
+        	{    		
+        		if(schemaOstacoli[randomOstacoli][j]==3)
+        		{
+        			int y_f = j*YDistanzaOstacoli+YDistanzaBase;
+            		Fantasmi f = new Fantasmi(PlayFrame.instance.getWidth(), y_f);
+                    fantasmiVector.add(f);
+                    generaFantasmi = 0;
+        		}
+        	}
+            //int y_o = (int) (Math.random() * PlayFrame.instance.getHeight());   
         }
     }
     
