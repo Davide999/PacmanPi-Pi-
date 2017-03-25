@@ -8,7 +8,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
-public class Ostacoli {
+public class Obstacle {
     private int x, y;
     private Image image;
     private boolean visible;
@@ -17,7 +17,7 @@ public class Ostacoli {
 
     private final static int VELOCITA_OSTACOLI = -4;
 
-    public Ostacoli(int x, int y) {
+    public Obstacle(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/blocchi/blocchi.png"));
         image = ii.getImage();
         visible = true;
