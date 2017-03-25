@@ -8,7 +8,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
-public class Fantasmi {
+public class Ghost {
     private int x, y;
     private Image image;
     private boolean visible;
@@ -17,7 +17,7 @@ public class Fantasmi {
 
     private final static int VELOCITA_FANTASMI = -4;
 
-    public Fantasmi(int x, int y) {   
+    public Ghost(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
         image = ii.getImage();
         visible = true;

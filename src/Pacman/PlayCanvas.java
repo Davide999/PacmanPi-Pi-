@@ -32,7 +32,7 @@ public class PlayCanvas extends java.awt.Canvas
 
     private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
-    private Vector<Fantasmi> fantasmiVector;
+    private Vector<Ghost> ghostVector;
     private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0},{0,0,3,0,0,0},{0,0,0,0,3,0}};
     public final int REFRESH_TIME = 8;
     private Timer timer; // timeout
@@ -197,8 +197,8 @@ public class PlayCanvas extends java.awt.Canvas
         		if(schemaOstacoli[randomOstacoli][j]==3)
         		{
         			int y_f = j*YDistanzaOstacoli+YDistanzaBase;
-            		Fantasmi f = new Fantasmi(PlayFrame.instance.getWidth(), y_f);
-                    fantasmiVector.add(f);
+            		Ghost f = new Ghost(PlayFrame.instance.getWidth(), y_f);
+                    ghostVector.add(f);
                     generaFantasmi = 0;
         		}
         	}
