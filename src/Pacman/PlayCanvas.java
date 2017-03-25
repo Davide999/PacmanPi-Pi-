@@ -32,7 +32,7 @@ public class PlayCanvas extends java.awt.Canvas
     private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
     private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0}};
-    public final int REFRESH_TIME = 6;
+    public final int REFRESH_TIME = 8;
     private Timer timer; // timeout
 
     private PlayCanvas() {
