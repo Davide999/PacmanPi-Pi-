@@ -18,21 +18,27 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-
 public class Menu extends Canvas implements ActionListener {
+    private ImageIcon icon;
+    private JLabel label;
+    private JPanel p;
 
-    private final int w=1000;
-    private final int h=500;
+
 
     public Menu() {
-    	
+
+
+
+
         //prepara la finestra
         JFrame f = new JFrame("Main Menu: Pacman");
         JButton start=new JButton("Start Game");
-        int larghezza=(int)w*50/100;
-        int altezza=(int)h*75/500;
-        
-        
+        int width=1000;
+        int height=500;
+        int larghezza=(int)width*2/5;
+        int altezza=(int)height*75/500;
+
+        //immagine start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/3-(PlayFrame.instance.getHeight()/3)),larghezza, altezza);
         //buttons
         start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5)),larghezza, altezza);
         f.add(start);
@@ -57,7 +63,7 @@ public class Menu extends Canvas implements ActionListener {
             }
         });
         f.add(esci);
-        f.setSize(w, h);
+        f.setSize(width, height);
         f.setResizable(false);
         f.setLocation(100, 100);
         f.add(this);
@@ -72,9 +78,23 @@ public class Menu extends Canvas implements ActionListener {
 
     @Override
     public void paint(Graphics g) {
-        // The background. It works, ok?
-        g.setColor(new Color(0, 0, 0));
-        g.fillRect(0, 0, w, h);
+        //si gestisce lo spazio da memorizzare nel buffer, ricavandolo da tutta l'ara visualizzabile
+        //in poche parole si crea uno spazio virtuale per l'immagine
+        Image workspace = createImage(getWidth(), getHeight());
+        Graphics buffer = workspace.getGraphics();
+
+        //si disegnano gli elementi nel buffer esterno
+        buffer.setColor(new Color(0, 0, 0));
+        buffer.fillRect(0, 0, 600, 400);
+        //Image img=getToolkit().getImage("image/montagne.png");
+        //buffer.drawImage(img, 0, 0, this);
+
+        //si visualizza l'immagine del buffer esterno
+        //avendo disegnato su uno spazio esterno si disegna l0immagine già pronta, eliminando di fatto lo sfarfallio
+
+
+        //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
+        buffer.dispose();
     }
 
     @Override
