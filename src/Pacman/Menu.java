@@ -53,7 +53,7 @@ public class Menu extends Canvas implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                PlayFrame.init();
+                MainPacman.init();
             }
         });
         esci.addActionListener(new ActionListener() {
@@ -86,8 +86,9 @@ public class Menu extends Canvas implements ActionListener {
         //si disegnano gli elementi nel buffer esterno
         buffer.setColor(new Color(0, 0, 0));
         buffer.fillRect(0, 0, 600, 400);
-        //Image img=getToolkit().getImage("image/montagne.png");
-        //buffer.drawImage(img, 0, 0, this);
+
+        Image img = getToolkit().getImage("sprites/Title/Title.png");
+        buffer.drawImage(img, 0, 0, this);
 
         //si visualizza l'immagine del buffer esterno
         //avendo disegnato su uno spazio esterno si disegna l0immagine già pronta, eliminando di fatto lo sfarfallio
