@@ -14,7 +14,8 @@ public class Ghost {
     private boolean visible;
     private int larghezza;
     private int altezza;
-
+    private int v_y = 2;
+    
     private final static int VELOCITA_FANTASMI = -6;
 
     public Ghost(int x, int y) {
@@ -24,6 +25,7 @@ public class Ghost {
         visible = true;
         this.x = x;
         this.y = y;
+        this.v_y=(int) Math.floor(Math.random()*5);
         larghezza = image.getWidth(null);
         altezza = image.getHeight(null);
     }
@@ -52,6 +54,12 @@ public class Ghost {
         x += VELOCITA_FANTASMI;
         if (x < -70)
             visible = false;
+        this.y += this.v_y;
+        if(y>PlayFrame.instance.getHeight()-altezza || y<0)
+        {
+        	this.v_y*=-1;
+        	
+        }
     }
     
     
