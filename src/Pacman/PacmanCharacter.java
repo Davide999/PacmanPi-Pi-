@@ -18,7 +18,7 @@ public class PacmanCharacter implements ActionListener {
     // images of the sprite
     private Image[] images;
     private int currentImage = 0;
-    public final int speed = 2;
+    public final int speed = 3;
     private int points = 0;
     private int deltaCurrentImage = 1;
     
@@ -60,6 +60,7 @@ public class PacmanCharacter implements ActionListener {
 
         Vector<Food> foodVector = PlayCanvas.instance.getFoodVector();
         Vector<Obstacle> obstacleVector = PlayCanvas.instance.getObstacleVector();
+        Vector<Ghost> ghostVector = PlayCanvas.instance.getGhostVector();
 
         Circle pacmanCirc = getDimensionCircle();
 
@@ -74,6 +75,13 @@ public class PacmanCharacter implements ActionListener {
 
         for (Obstacle o : obstacleVector) {
             if(pacmanCirc.intersects(o.getBounds())) {
+                die();
+                break;
+            }
+        }
+        
+        for (Ghost g : ghostVector) {
+            if(g.getDimensionRectangle().intersects(pacmanRect)) {
                 die();
                 break;
             }

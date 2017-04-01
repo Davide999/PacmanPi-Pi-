@@ -34,7 +34,10 @@ public class PlayCanvas extends java.awt.Canvas
     private Vector<Obstacle> obstacleVector;
     private Vector<Ghost> ghostVector;
     private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0},{0,0,3,0,0,0},{0,0,0,0,3,0}};
-    public final int REFRESH_TIME = 8;
+
+    public final int REFRESH_TIME = 10;
+    private boolean antonioStellaBottomTile = true;
+
     private Timer timer; // timeout
 
     private PlayCanvas() {
@@ -44,9 +47,14 @@ public class PlayCanvas extends java.awt.Canvas
         generaPunti = 0;
         livelloOstacoli = 1;
         generaOstacoli = 0;
+
         // start timer timeout
         timer = new Timer(REFRESH_TIME, this);
+    }
+
+    public void init() {
         timer.start();
+        antonioStellaBottomTile = false;
     }
 
     public void stopGame(){
@@ -76,6 +84,10 @@ public class PlayCanvas extends java.awt.Canvas
     public Vector<Obstacle> getObstacleVector() {
         return obstacleVector;
     }
+    
+    public Vector<Ghost> getGhostVector() {
+        return ghostVector;
+    }
 
     @Override
     public void update(Graphics g) {
@@ -85,6 +97,7 @@ public class PlayCanvas extends java.awt.Canvas
     @Override
     public void paint(Graphics g) {
         //super.paint(g);
+        if(antonioStellaBottomTile) return;
 
         //si gestisce lo spazio da memorizzare nel buffer, ricavandolo da tutta l'area visualizzabile
         Image workspace = createImage(getWidth(), getHeight());

@@ -18,10 +18,6 @@ public class PlayFrame extends JFrame implements KeyListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public static void init(){
-        PlayFrame.instance.setVisible(true);
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {}
 
