@@ -1,10 +1,13 @@
 package Pacman;
 
+import javafx.scene.shape.Circle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
 import java.util.Vector;
 
 public class PacmanCharacter implements ActionListener {
@@ -20,10 +23,10 @@ public class PacmanCharacter implements ActionListener {
     private int deltaCurrentImage = 1;
     
     // position and movement
-    private int horiz = 200;
-    private int vert = 250;
-    private int deltaHoriz = 0;
-    private int deltaVert = 0;
+    private int radius = 125;
+    //private int vert = 250;
+    private int deltaRadius = 0;
+    //private int deltaVert = 0;
     private int width;
     private int height;
     private boolean morto=false;
@@ -47,21 +50,21 @@ public class PacmanCharacter implements ActionListener {
         timer.start();
     }
 
-    public Rectangle getDimensionRectangle() {
-        return new Rectangle(horiz, vert, width, height);
+    public Circle getDimensionCircle() {
+        return new Circle(radius, width, height);
     }
 
     public void moveAndHandleCollisions() {
-        horiz += deltaHoriz;
-        vert += deltaVert;
+        radius += deltaRadius;
+        //vert += deltaVert;
 
         Vector<Food> foodVector = PlayCanvas.instance.getFoodVector();
         Vector<Obstacle> obstacleVector = PlayCanvas.instance.getObstacleVector();
 
-        Rectangle pacmanRect = getDimensionRectangle();
+        Circle pacmanCirc = getDimensionCircle();
 
         for (Food f : foodVector) {
-            if(f.getDimensionRectangle().intersects(pacmanRect)) {
+            if(pacmanCirc.intersects(f.getBounds())) {
                 foodVector.remove(f);
                 points += 10;
                 System.out.println(points);
@@ -70,41 +73,41 @@ public class PacmanCharacter implements ActionListener {
         }
 
         for (Obstacle o : obstacleVector) {
-            if(o.getDimensionRectangle().intersects(pacmanRect)) {
+            if(pacmanCirc.intersects(o.getBounds())) {
                 die();
                 break;
             }
         }
     }
 
-    public int getHoriz() {
-        return horiz;
+    public int getRadius() {
+        return radius;
     }
 
-    public int getVert() {
+   /* public int getVert() {
         return vert;
-    }
+    }*/
 
     public Image getCurrentImage() {
         return images[currentImage];
     }
 
     public void paintImage(Graphics2D buffer) {
-        buffer.drawImage(images[currentImage], horiz, vert, null);
+        buffer.drawImage(images[currentImage], AffineTransform.getRotateInstance(radius), null);
     }
 
     public void handleKeyPressed(KeyEvent e) {
-    	if(horiz<10)
+    	if(radius<10)
     	{
-    		deltaHoriz=0;
-    		horiz=10;
+    		deltaRadius=0;
+    		radius=10;
     	}
-    	if(horiz>PlayFrame.instance.getWidth()-width)
+    	if(radius>PlayFrame.instance.getWidth()-width)
     	{
-    		deltaHoriz=0;
-    		horiz=PlayFrame.instance.getWidth()-width;
+    		deltaRadius=0;
+    		radius=PlayFrame.instance.getWidth()-width;
     	}
-    	if(vert<10)
+    	/*if(vert<10)
     	{
     		deltaVert=0;
     		vert=10;
@@ -113,40 +116,40 @@ public class PacmanCharacter implements ActionListener {
     	{
     		deltaVert=0;
     		vert=PlayFrame.instance.getHeight()-height;
-    	}
+    	}*/
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:
-                deltaHoriz = -speed;
+                deltaRadius = -speed;
                 break;
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
-                deltaHoriz = speed;
+                deltaRadius = speed;
                 break;
-            case KeyEvent.VK_UP:
+           /* case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
                 deltaVert = -speed;
                 break;
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 deltaVert = speed;
-                break;
+                break;*/
             // case KeyEvent.VK_SPACE: - future                        
         }
     }
 
     public void handleKeyReleased(KeyEvent e) {
-    	if(horiz<10)
+    	if(radius<10)
     	{
-    		deltaHoriz=0;
-    		horiz=10;
+    		deltaRadius=0;
+    		radius=10;
     	}
-    	if(horiz>PlayFrame.instance.getWidth()-width)
+    	if(radius>PlayFrame.instance.getWidth()-width)
     	{
-    		deltaHoriz=0;
-    		horiz=PlayFrame.instance.getWidth()-width;
+    		deltaRadius=0;
+    		radius=PlayFrame.instance.getWidth()-width;
     	}
-    	if(vert<10)
+    	/*if(vert<10)
     	{
     		deltaVert=0;
     		vert=10;
@@ -155,20 +158,20 @@ public class PacmanCharacter implements ActionListener {
     	{
     		deltaVert=0;
     		vert=PlayFrame.instance.getHeight()-height;
-    	}
+    	}*/
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
             case KeyEvent.VK_A:
-                deltaHoriz = 0;
+                deltaRadius = 0;
                 break;
-            case KeyEvent.VK_UP:
+            /*case KeyEvent.VK_UP:
             case KeyEvent.VK_DOWN:
             case KeyEvent.VK_W:
             case KeyEvent.VK_S:
                 deltaVert = 0;
-                break;
+                break;*/
         }
     }
 

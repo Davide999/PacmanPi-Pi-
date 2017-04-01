@@ -4,6 +4,9 @@
  */
 package Pacman;
 
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
+
 import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
@@ -27,8 +30,8 @@ public class Food {
         altezza = image.getHeight(null);
     }
 
-    public Rectangle getDimensionRectangle() {
-        return new Rectangle(x, y, larghezza, altezza);
+    public Bounds getBounds() {
+        return new BoundingBox(x, y, larghezza, altezza);
     }
 
     public Image getImage() {
