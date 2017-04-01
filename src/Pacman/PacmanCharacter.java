@@ -81,7 +81,7 @@ public class PacmanCharacter implements ActionListener {
         }
         
         for (Ghost g : ghostVector) {
-            if(g.getDimensionRectangle().intersects(pacmanRect)) {
+            if(pacmanCirc.intersects(g.getBounds())) {
                 die();
                 break;
             }
