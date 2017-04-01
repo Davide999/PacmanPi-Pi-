@@ -53,7 +53,7 @@ public class Menu extends Canvas implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
-                PlayFrame.init();
+                MainPacman.init();
             }
         });
         esci.addActionListener(new ActionListener() {
