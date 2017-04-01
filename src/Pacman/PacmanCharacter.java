@@ -1,5 +1,7 @@
 package Pacman;
 
+import javafx.scene.shape.Circle;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,8 +49,8 @@ public class PacmanCharacter implements ActionListener {
         timer.start();
     }
 
-    public Rectangle getDimensionRectangle() {
-        return new Rectangle(horiz, vert, width, height);
+    public Circle getDimensionCircle() {
+        return new Circle(horiz+width/2, vert+height/2, width/2);
     }
 
     public void moveAndHandleCollisions() {
@@ -59,10 +61,10 @@ public class PacmanCharacter implements ActionListener {
         Vector<Obstacle> obstacleVector = PlayCanvas.instance.getObstacleVector();
         Vector<Ghost> ghostVector = PlayCanvas.instance.getGhostVector();
 
-        Rectangle pacmanRect = getDimensionRectangle();
+        Circle pacmanCirc = getDimensionCircle();
 
         for (Food f : foodVector) {
-            if(f.getDimensionRectangle().intersects(pacmanRect)) {
+            if(pacmanCirc.intersects(f.getBounds())) {
                 foodVector.remove(f);
                 points += 10;
                 System.out.println(points);
@@ -71,14 +73,14 @@ public class PacmanCharacter implements ActionListener {
         }
 
         for (Obstacle o : obstacleVector) {
-            if(o.getDimensionRectangle().intersects(pacmanRect)) {
+            if(pacmanCirc.intersects(o.getBounds())) {
                 die();
                 break;
             }
         }
-        
+
         for (Ghost g : ghostVector) {
-            if(g.getDimensionRectangle().intersects(pacmanRect)) {
+            if(pacmanCirc.intersects(g.getBounds())) {
                 die();
                 break;
             }
