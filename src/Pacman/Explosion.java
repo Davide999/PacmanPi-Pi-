@@ -8,7 +8,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
-public class Esplosione {
+public class Explosion {
     
      private int x, y;
     private Image image[];
@@ -29,7 +29,7 @@ public class Esplosione {
     
         
 
-    public Esplosione(int x, int y) {
+    public Explosion(int x, int y) {
         image=new Image[12];
         
         for (int i=0;i<image.length;i++){

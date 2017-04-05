@@ -7,11 +7,7 @@ package Pacman;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -93,7 +89,7 @@ public class Menu extends Canvas implements ActionListener {
         ldm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Background.instance.setBackgroundActive();
+            	Background.instance.toggleBackground();
             }
    
         });

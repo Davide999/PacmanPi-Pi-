@@ -7,11 +7,10 @@ package Pacman;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
 import javax.swing.ImageIcon;
 
-public class Food {
+public class Food implements Movable, Drawable, Boundable{
     private int x, y;
     private Image image;
     private boolean visible;
@@ -30,31 +29,26 @@ public class Food {
         altezza = image.getHeight(null);
     }
 
+    @Override
     public Bounds getBounds() {
         return new BoundingBox(x, y, larghezza, altezza);
     }
 
-    public Image getImage() {
-        return image;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
+    @Override
     public boolean isVisible() {
         return visible;
     }
 
+    @Override
     public void move() {
         x += VELOCITA_PUNTI;
         if (x < -70)
             visible = false;
     }
 
+    @Override
+    public void paintImage(Graphics2D buffer) {
+        buffer.drawImage(image, x, y, null);
+    }
 }
 

@@ -116,18 +116,16 @@ public class PlayCanvas extends java.awt.Canvas
         Background.instance.paintImage(buffer);
 
         // moves pacman and draws it
-        PacmanCharacter.instance.moveAndHandleCollisions();
+        PacmanCharacter.instance.move();
         PacmanCharacter.instance.paintImage(buffer);
 
-        //Gesione punti
-        for (Food p : foodVector) {
-            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
-        }
-        
-        //Gesione ostacoli
-        for (Obstacle p : obstacleVector) {
-            buffer.drawImage(p.getImage(), p.getX(), p.getY(), this);
-        }
+        Vector<Drawable> drawableVector = new Vector<>();
+        drawableVector.addAll(ghostVector);
+        drawableVector.addAll(obstacleVector);
+        drawableVector.addAll(foodVector);
+
+        for(Drawable d : drawableVector)
+            d.paintImage(buffer);
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
@@ -144,7 +142,7 @@ public class PlayCanvas extends java.awt.Canvas
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        PacmanCharacter.instance.moveAndHandleCollisions();
+        PacmanCharacter.instance.move();
         randomOstacoli=(int) Math.floor(Math.random()*schemaOstacoli.length);
         creaPunti();
         creaOstacoli();
@@ -165,41 +163,40 @@ public class PlayCanvas extends java.awt.Canvas
                 obstacleVector.remove(j);
             }
         }
+        for (int j = 0; j < ghostVector.size(); j++) {
+            Ghost g = ghostVector.get(j);
+            if (g.isVisible()) {
+                g.move();
+            } else {
+                ghostVector.remove(j);
+            }
+        }
         repaint();
     }
 
     private void creaPunti() {
         generaPunti++;
-        if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli)) {
-        	
+        if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli))
         	for(int j=0;j<schemaOstacoli.length-1;j++)
-        	{    		
-        		if(schemaOstacoli[randomOstacoli][j]==2)
-        		{
-		            int y_p = (int) (j*YDistanzaOstacoli+YDistanzaBase);
+        		if(schemaOstacoli[randomOstacoli][j]==2) {
+		            int y_p = j*YDistanzaOstacoli+YDistanzaBase;
 		            Food f = new Food(PlayFrame.instance.getWidth(), y_p);
 		            foodVector.add(f);
 		            generaPunti = 0;
         		}
-        	}
-        }
     }
     
     private void creaOstacoli() {
         generaOstacoli++;
-        if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli)) {
-        	
+        if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli))
         	for(int j=0;j<schemaOstacoli.length-1;j++)
-        	{    		
-        		if(schemaOstacoli[randomOstacoli][j]==1)
-        		{
+        		if(schemaOstacoli[randomOstacoli][j]==1) {
         			int y_o = j*YDistanzaOstacoli+YDistanzaBase;
             		Obstacle o = new Obstacle(PlayFrame.instance.getWidth(), y_o);
                     obstacleVector.add(o);
                     generaOstacoli = 0;
         		}
-        	}
-        }
+
     }
     
     private void creaFantasmi() {
@@ -216,7 +213,6 @@ public class PlayCanvas extends java.awt.Canvas
                     generaFantasmi = 0;
         		}
         	}
-            //int y_o = (int) (Math.random() * PlayFrame.instance.getHeight());   
         }
     }
     
