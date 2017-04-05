@@ -20,7 +20,7 @@ public class Food implements Movable, Drawable, Boundable{
     private final static int VELOCITA_PUNTI = -4;
 
     public Food(int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/Punti/food.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/food/food.png"));
         image = ii.getImage();
         visible = true;
         this.x = x;

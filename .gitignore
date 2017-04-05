@@ -47,3 +47,5 @@ crashlytics-build.properties
 fabric.properties
 .directory
 /bin/
+
+Thumbs.db

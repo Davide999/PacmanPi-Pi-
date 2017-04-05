@@ -20,7 +20,7 @@ public class Obstacle implements Movable, Drawable, Boundable {
     private final static int VELOCITA_OSTACOLI = -4;
 
     public Obstacle(int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/blocchi/blocchi.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/obstacle/obstacle.png"));
         image = ii.getImage();
         visible = true;
         this.x = x;

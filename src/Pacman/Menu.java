@@ -1,149 +1,129 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Pacman;
 
-
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
+/**
+ * Game main menu.
+ *
+ * TODO: Make a huge refactor inside this class. Now it's awful. Bob Ross forgive me.
+ */
 
-public class Menu extends Canvas implements ActionListener {
-    private ImageIcon icon;
-    private JLabel label;
-    private JPanel p;
-    private boolean menu_options=false;
+public class Menu {
+    public static Menu instance = new Menu();
 
+    private boolean menuOptionsShown = false;
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 500;
+    private final int BUTTONWIDTH = WIDTH * 2 / 5;
+    private final int BUTTONHEIGHT = HEIGHT * 75 / 500;
+    private JFrame mainFrame;
 
-    public Menu() {
-        //prepara la finestra
-        JFrame f = new JFrame("Main Menu: Pacman");
-        JFrame o = new JFrame("Optionis: Pacman");
-        JButton start=new JButton("Start Game");
-        JButton esci=new JButton("Exit");
-        JButton options=new JButton("Options");
-        JButton back=new JButton("Back");
-        JButton ldm=new JButton("Low Detail Mode");
-        
-        int width=1000;
-        int height=500;
-        int larghezza=(int)width*2/5;
-        int altezza=(int)height*75/500;
-        int larghezza2=(int)width*2/10;
-        int altezza2=(int)height*75/1000;
-        
+    private static Image getScaledImage(Image srcImg, int w, int h) {
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = resizedImg.createGraphics();
 
-        //immagine start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/3-(PlayFrame.instance.getHeight()/3)),larghezza, altezza);
-        //buttons
-        start.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5)),larghezza, altezza);
-        f.add(start);
-        options.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5))+1*altezza,larghezza, altezza);
-        f.add(options);
-        ldm.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5)),larghezza, altezza);
-        o.add(ldm);
-        back.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5))+2*altezza,larghezza, altezza);
-        o.add(back);
-        esci.setBounds((PlayFrame.instance.getWidth()/2-larghezza/2),(PlayFrame.instance.getHeight()/2-(PlayFrame.instance.getHeight()/5))+2*altezza,larghezza, altezza);
-        esci.setBackground(Color.BLACK);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        return resizedImg;
+    }
+
+    private Menu() {
+        // construct frames and remove default layout
+        mainFrame = new JFrame("Main Menu: Pacman++");
+        mainFrame.setLayout(null);
+
+        JFrame o = new JFrame("Options: Pacman++");
+        o.setLayout(null);
+
+        // buttons inside menu frame
+        JButton start = new JButton("Start Game");
+        JButton exit = new JButton("Exit");
+        JButton options = new JButton("Options");
+
+        // buttons inside options frame
+        JButton back = new JButton("Back");
+        JButton ldm = new JButton("Low Detail Mode");
+
+        // buttons, styles and listeners follow
+
+        start.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
+                (PlayFrame.instance.getHeight() / 5)), BUTTONWIDTH, BUTTONHEIGHT);
         start.setBackground(Color.BLACK);
-        ldm.setBackground(Color.BLACK);
-        options.setBackground(Color.BLACK);
-        back.setBackground(Color.BLACK);
         start.setForeground(Color.WHITE);
-        esci.setForeground(Color.WHITE);
-        ldm.setForeground(Color.WHITE);
+        start.addActionListener(e -> {
+            mainFrame.setVisible(false);
+            MainPacman.init();
+        });
+        mainFrame.add(start);
+
+        options.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2
+                - (PlayFrame.instance.getHeight() / 5)) + BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
+        options.setBackground(Color.BLACK);
         options.setForeground(Color.WHITE);
+        options.addActionListener(e -> {
+            menuOptionsShown = !menuOptionsShown;
+            mainFrame.setVisible(false);
+            o.setVisible(true);
+        });
+        mainFrame.add(options);
+
+        ldm.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
+                (PlayFrame.instance.getHeight() / 5)), BUTTONWIDTH, BUTTONHEIGHT);
+        ldm.setBackground(Color.BLACK);
+        ldm.setForeground(Color.WHITE);
+        ldm.addActionListener(e -> Background.instance.toggleBackground());
+        o.add(ldm);
+
+        back.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
+                (PlayFrame.instance.getHeight() / 5)) + 2 * BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
+        back.setBackground(Color.BLACK);
         back.setForeground(Color.WHITE);
-        //operation buttons
-        start.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                f.setVisible(false);
-                MainPacman.init();
-            }
+        back.addActionListener(e -> {
+            menuOptionsShown = !menuOptionsShown;
+            o.setVisible(false);
+            mainFrame.setVisible(true);
         });
-        options.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	menu_options= !menu_options;
-            	f.setVisible(false);
-            	o.setVisible(true);
-            }
-   
-        });
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	menu_options= !menu_options;
-            	o.setVisible(false);
-            	f.setVisible(true);
-            }
-   
-        });
-        ldm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	Background.instance.toggleBackground();
-            }
-   
-        });
-        esci.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);//close
-            }
-        });
-        f.add(esci);
-        f.setSize(width, height);
-        f.setResizable(false);
-        f.setLocation(100, 100);
-        f.add(this);
-        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        f.setVisible(true);
-        
-        o.setSize(width, height);
+        o.add(back);
+
+        exit.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
+                (PlayFrame.instance.getHeight() / 5)) + 2 * BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
+        exit.setBackground(Color.BLACK);
+        exit.setForeground(Color.WHITE);
+        exit.addActionListener(e -> System.exit(0));
+        mainFrame.add(exit);
+
+        // Game logo image
+        Image titleImage = new ImageIcon(this.getClass().getResource("sprites/title/title.png")).getImage();
+
+        final int TITLEWIDTH = (int) ((double) WIDTH * 0.8);
+        final int TITLEHORIZ = (WIDTH - TITLEWIDTH) / 2;
+        final int TITLEVERT = 22;
+        final int TITLEHEIGHT = (int) (((double) TITLEWIDTH / (double) titleImage.getWidth(null))
+                * (double) titleImage.getHeight(null));
+
+        titleImage = getScaledImage(titleImage, TITLEWIDTH, TITLEHEIGHT);
+        JLabel title = new JLabel(new ImageIcon(titleImage));
+        title.setBounds(TITLEHORIZ, TITLEVERT, TITLEWIDTH, TITLEHEIGHT);
+        title.setVisible(true);
+        mainFrame.add(title);
+
+        // final options
+        mainFrame.setSize(WIDTH, HEIGHT);
+        mainFrame.setResizable(false);
+        mainFrame.setLocation(100, 100);
+        mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        o.setSize(WIDTH, HEIGHT);
         o.setResizable(false);
         o.setLocation(100, 100);
-        o.add(this);
         o.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void update(Graphics g) {
-        paint(g);
+    public void init() {
+        mainFrame.setVisible(true);
     }
-
-    @Override
-    public void paint(Graphics g) {
-        //si gestisce lo spazio da memorizzare nel buffer, ricavandolo da tutta l'ara visualizzabile
-        //in poche parole si crea uno spazio virtuale per l'immagine
-        Image workspace = createImage(getWidth(), getHeight());
-        Graphics buffer = workspace.getGraphics();
-
-        //si disegnano gli elementi nel buffer esterno
-        buffer.setColor(new Color(0, 0, 0));
-        buffer.fillRect(0, 0, 600, 400);
-
-        Image img = getToolkit().getImage("sprites/Title/Title.png");
-        buffer.drawImage(img, 0, 0, this);
-
-        //si visualizza l'immagine del buffer esterno
-        //avendo disegnato su uno spazio esterno si disegna l0immagine già pronta, eliminando di fatto lo sfarfallio
-
-
-        //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
-        buffer.dispose();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
-    }
-
 }

@@ -9,11 +9,9 @@ import javax.swing.ImageIcon;
 
 
 public class Background {
-    private int horiz = 200;
-    private int vert = 250;
 
     public static final Background instance = new Background();
-    private static boolean active = true;
+    private boolean active = true;
 
     private final Image somethingCalledOroLoop = new ImageIcon(this.getClass()
             .getResource("sprites/background/oro loop.png"))
