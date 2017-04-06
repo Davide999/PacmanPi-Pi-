@@ -8,6 +8,8 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 import java.awt.*;
+import java.util.*;
+
 import javax.swing.ImageIcon;
 
 public class Obstacle implements Movable, Drawable, Boundable {
@@ -17,7 +19,9 @@ public class Obstacle implements Movable, Drawable, Boundable {
     private int larghezza;
     private int altezza;
 
-    private final static int VELOCITA_OSTACOLI = -4;
+    private final static int CURING_TIME = 10000;
+    private static int VELOCITA_OSTACOLI = -3;
+    static Timer timer = new Timer();
 
     public Obstacle(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/obstacle/obstacle.png"));
@@ -27,6 +31,7 @@ public class Obstacle implements Movable, Drawable, Boundable {
         this.y = y;
         larghezza = image.getWidth(null);
         altezza = image.getHeight(null);
+        Timer();
     }
 
     @Override
@@ -49,6 +54,20 @@ public class Obstacle implements Movable, Drawable, Boundable {
     @Override
     public void paintImage(Graphics2D buffer) {
         buffer.drawImage(image, x, y, null);
+    }
+    
+    public static void Timer() {
+
+        TimerTask task;
+
+        task = new TimerTask() {
+            @Override
+            public void run() { 
+                VELOCITA_OSTACOLI--;
+            }
+        };
+         timer.schedule(task, 0, CURING_TIME);
+
     }
 }
 

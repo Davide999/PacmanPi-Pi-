@@ -177,6 +177,6 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
 
         //TODO: Play pacman death here
 
-        PlayCanvas.instance.stopGame();
+        PlayCanvas.instance.stopGame();        
     }
 }

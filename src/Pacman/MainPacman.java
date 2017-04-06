@@ -5,6 +5,10 @@ public class MainPacman {
     public static void main(String argv[]) {
         Menu.instance.init();
     }
+    
+    static void replay() {
+        Menu.instance.init();
+    }
 
     public static void init() {
         PlayFrame.instance.setVisible(true);

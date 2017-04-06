@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -29,13 +29,14 @@ public class PlayCanvas extends java.awt.Canvas
     final private int YDistanzaOstacoli=80; //la distanza verticale tra un ostacolo e l'altro
     final private int YDistanzaBase=30;	//la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli=1; //il rateo con cui appaiono gli ostacoli: pi� basso=pi� distanti
-
+    
     private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
     private Vector<Ghost> ghostVector;
     private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0},{0,0,3,0,0,0},{0,0,0,0,3,0}};
 
     public final int REFRESH_TIME = 10;
+    
     private boolean antonioStellaBottomTile = true;
 
     private Timer timer; // timeout
@@ -50,13 +51,16 @@ public class PlayCanvas extends java.awt.Canvas
         generaOstacoli = 0;
 
         // start timer timeout
+        
         timer = new Timer(REFRESH_TIME, this);
+
     }
 
     public void init() {
         timer.start();
         antonioStellaBottomTile = false;
     }
+    
 
     public void stopGame(){
         timer.stop();
@@ -215,6 +219,6 @@ public class PlayCanvas extends java.awt.Canvas
         	}
         }
     }
-    
-    
 }
+
+

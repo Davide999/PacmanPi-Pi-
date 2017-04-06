@@ -8,7 +8,11 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 import java.awt.*;
+import java.util.*;
+
+
 import javax.swing.ImageIcon;
+
 
 public class Ghost implements Movable, Drawable, Boundable {
     private int x, y;
@@ -18,9 +22,12 @@ public class Ghost implements Movable, Drawable, Boundable {
     private int altezza;
     private int v_y = 2;
 
-    private final static int VELOCITA_FANTASMI = -6;
-
+    private final static int CURING_TIME = 10000;
+    private static int VELOCITA_FANTASMI = -5;
+    static Timer timer = new Timer();
+    
     public Ghost(int x, int y) {
+    	   
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
         image = ii.getImage();
         visible = true;
@@ -29,6 +36,7 @@ public class Ghost implements Movable, Drawable, Boundable {
         this.v_y = (int) Math.floor(Math.random() * 5);
         larghezza = image.getWidth(null);
         altezza = image.getHeight(null);
+        Timer();
     }
 
     @Override
@@ -57,5 +65,21 @@ public class Ghost implements Movable, Drawable, Boundable {
     public void paintImage(Graphics2D buffer) {
         buffer.drawImage(image, x, y, null);
     }
+    
+    public static void Timer() {
+
+        TimerTask task;
+
+        task = new TimerTask() {
+            @Override
+            public void run() { 
+                VELOCITA_FANTASMI--;
+            }
+        };
+         timer.schedule(task, 0, CURING_TIME);
+
+    }
+
+
 }
 
