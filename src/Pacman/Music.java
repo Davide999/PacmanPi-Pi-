@@ -1,6 +1,8 @@
 package Pacman;
 
+import java.io.File;
 import java.util.*;
+import javafx.scene.media.*;
 
 public class Music {
 	
@@ -46,6 +48,10 @@ public class Music {
 	public void start()
 	{
 		Timer();
+		/*String bip = "bip.mp3";
+		Media hit = new Media(new File(bip).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();*/
 	}
 	
 	public void stop()
