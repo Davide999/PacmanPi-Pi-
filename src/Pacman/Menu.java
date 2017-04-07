@@ -35,6 +35,7 @@ public class Menu {
         // construct frames and remove default layout
         mainFrame = new JFrame("Main Menu: Pacman++");
         mainFrame.setLayout(null);
+        mainFrame.getContentPane().setBackground(Color.CYAN);
 
         JFrame o = new JFrame("Options: Pacman++");
         o.setLayout(null);
@@ -47,13 +48,13 @@ public class Menu {
         // buttons inside options frame
         JButton back = new JButton("Back");
         JButton ldm = new JButton("Low Detail Mode");
-
+        //immage
         // buttons, styles and listeners follow
 
         start.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
                 (PlayFrame.instance.getHeight() / 5)), BUTTONWIDTH, BUTTONHEIGHT);
-        start.setBackground(Color.BLACK);
-        start.setForeground(Color.WHITE);
+        start.setBackground(Color.RED);
+        start.setForeground(Color.YELLOW);
         start.addActionListener(e -> {
             mainFrame.setVisible(false);
             MainPacman.init();
@@ -62,26 +63,27 @@ public class Menu {
 
         options.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2
                 - (PlayFrame.instance.getHeight() / 5)) + BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
-        options.setBackground(Color.BLACK);
-        options.setForeground(Color.WHITE);
+        options.setBackground(Color.RED);
+        options.setForeground(Color.YELLOW);
         options.addActionListener(e -> {
             menuOptionsShown = !menuOptionsShown;
             mainFrame.setVisible(false);
+            o.getContentPane().setBackground(Color.CYAN);
             o.setVisible(true);
         });
         mainFrame.add(options);
 
         ldm.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
                 (PlayFrame.instance.getHeight() / 5)), BUTTONWIDTH, BUTTONHEIGHT);
-        ldm.setBackground(Color.BLACK);
-        ldm.setForeground(Color.WHITE);
+        ldm.setBackground(Color.RED);
+        ldm.setForeground(Color.YELLOW);
         ldm.addActionListener(e -> Background.instance.toggleBackground());
         o.add(ldm);
 
         back.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
                 (PlayFrame.instance.getHeight() / 5)) + 2 * BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
-        back.setBackground(Color.BLACK);
-        back.setForeground(Color.WHITE);
+        back.setBackground(Color.RED);
+        back.setForeground(Color.YELLOW);
         back.addActionListener(e -> {
             menuOptionsShown = !menuOptionsShown;
             o.setVisible(false);
@@ -91,8 +93,8 @@ public class Menu {
 
         exit.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH / 2), (PlayFrame.instance.getHeight() / 2 -
                 (PlayFrame.instance.getHeight() / 5)) + 2 * BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
-        exit.setBackground(Color.BLACK);
-        exit.setForeground(Color.WHITE);
+        exit.setBackground(Color.RED);
+        exit.setForeground(Color.YELLOW);
         exit.addActionListener(e -> System.exit(0));
         mainFrame.add(exit);
 
