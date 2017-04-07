@@ -19,9 +19,9 @@ public class Food implements Movable, Drawable, Boundable{
     private int larghezza;
     private int altezza;
 
-    private final static int CURING_TIME = 10000;
+    
     private static int VELOCITA_PUNTI = -3;
-    static Timer timer = new Timer();
+    
 
     public Food(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/food/food.png"));
@@ -31,7 +31,6 @@ public class Food implements Movable, Drawable, Boundable{
         this.y = y;
         larghezza = image.getWidth(null);
         altezza = image.getHeight(null);
-        Timer();
     }
 
     @Override
@@ -56,19 +55,10 @@ public class Food implements Movable, Drawable, Boundable{
         buffer.drawImage(image, x, y, null);
     }
     
-    
-    public static void Timer() {
-
-        TimerTask task;
-
-        task = new TimerTask() {
-            @Override
-            public void run() { 
-                VELOCITA_PUNTI--;
-            }
-        };
-         timer.schedule(task, 0, CURING_TIME);
-
+    public static void changeSpeed(int i)
+    {
+    	VELOCITA_PUNTI = i;
     }
+
 }
 

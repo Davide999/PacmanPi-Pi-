@@ -22,10 +22,8 @@ public class Ghost implements Movable, Drawable, Boundable {
     private int altezza;
     private int v_y = 2;
 
-    private final static int CURING_TIME = 10000;
     private static int VELOCITA_FANTASMI = -5;
-    static Timer timer = new Timer();
-    
+
     public Ghost(int x, int y) {
     	   
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
@@ -36,7 +34,7 @@ public class Ghost implements Movable, Drawable, Boundable {
         this.v_y = (int) Math.floor(Math.random() * 5);
         larghezza = image.getWidth(null);
         altezza = image.getHeight(null);
-        Timer();
+        
     }
 
     @Override
@@ -66,18 +64,9 @@ public class Ghost implements Movable, Drawable, Boundable {
         buffer.drawImage(image, x, y, null);
     }
     
-    public static void Timer() {
-
-        TimerTask task;
-
-        task = new TimerTask() {
-            @Override
-            public void run() { 
-                VELOCITA_FANTASMI--;
-            }
-        };
-         timer.schedule(task, 0, CURING_TIME);
-
+    public static void changeSpeed(int i)
+    {
+    	VELOCITA_FANTASMI = i;
     }
 
 
