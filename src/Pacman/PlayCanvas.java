@@ -40,7 +40,8 @@ public class PlayCanvas extends java.awt.Canvas
     private boolean antonioStellaBottomTile = true;
 
     private Timer timer; // timeout
-
+    Music m=new Music();
+    
     private PlayCanvas() {
         foodVector = new Vector<>();
         obstacleVector = new Vector<>();
@@ -59,11 +60,13 @@ public class PlayCanvas extends java.awt.Canvas
     public void init() {
         timer.start();
         antonioStellaBottomTile = false;
+        m.start();
     }
     
 
     public void stopGame(){
         timer.stop();
+        m.stop();
     }
 
     public int getScrollPosition() {

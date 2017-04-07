@@ -20,7 +20,7 @@ public class Ghost implements Movable, Drawable, Boundable {
     private boolean visible;
     private int larghezza;
     private int altezza;
-    private int v_y = 2;
+    private int v_y = 1;
 
     private static int VELOCITA_FANTASMI = -5;
 
@@ -66,7 +66,7 @@ public class Ghost implements Movable, Drawable, Boundable {
     
     public static void changeSpeed(int i)
     {
-    	VELOCITA_FANTASMI = i;
+    	VELOCITA_FANTASMI = i-2;
     }
 
 
