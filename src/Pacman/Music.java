@@ -1,17 +1,24 @@
 package Pacman;
 
-import java.io.File;
+
+import java.io.IOException;
+import javax.sound.sampled.*;
+import  sun.audio.*;
+import  java.io.*;
+import javafx.application.Application;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import java.util.*;
-import javafx.scene.media.*;
 
 public class Music {
 	
-	static Timer timer = new Timer();
+	static Timer timer2 = new Timer();
 	private final static int CURING_TIME = 1000;
 	private static int seconds=0;
 	private static int i=0;
 	private static int velocita=-5;
-	static int vettoreCambio[][]= {{-5,1},{-2,3},{-4,5},{-6,7}}; //[velocità][tempo di cambio]
+	static int vettoreCambio[][]= {{-10,1},{-3,3},{-5,14},{-7,27},{-2,39}}; //[velocità][tempo di cambio]
 	
 	public Music()
 	{	
@@ -39,23 +46,21 @@ public class Music {
             	Obstacle.changeSpeed(velocita);
             }
         };
-         timer.schedule(task, 0, CURING_TIME);
+         timer2.schedule(task, 0, CURING_TIME);
          
     }
 	
-	
-	
+
 	public void start()
 	{
+		SoundClip.start();
 		Timer();
-		/*String bip = "bip.mp3";
-		Media hit = new Media(new File(bip).toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);
-		mediaPlayer.play();*/
 	}
 	
 	public void stop()
 	{
-		timer.cancel();
+		timer2.cancel();
 	}
 }
+
+
