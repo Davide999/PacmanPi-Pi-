@@ -18,12 +18,7 @@ public class Music {
 	private static int seconds=0;
 	private static int i=0;
 	private static int velocita=-5;
-	static int vettoreCambio[][]= {{-10,1},{-3,3},{-5,14},{-7,27},{-2,39}}; //[velocità][tempo di cambio]
-	
-	public Music()
-	{	
-		
-	}
+	static int vettoreCambio[][]= {{-10,1},{-3,3},{-5,16},{-7,30},{-2,39}}; //[velocità][tempo di cambio]
 	
 	public static void Timer() {
 		
@@ -34,12 +29,14 @@ public class Music {
             public void run()
             {
             	seconds++;
-            	System.out.println("second: "+seconds);
             	if(vettoreCambio[i][1]==seconds)
             	{
             		velocita=vettoreCambio[i][0];
             		i++;
-            		System.out.println("i: "+i);
+            	}
+            	if(seconds==3)
+            	{
+            		SoundClip.start();
             	}
             	Ghost.changeSpeed(velocita);
             	Food.changeSpeed(velocita);
@@ -53,7 +50,7 @@ public class Music {
 
 	public void start()
 	{
-		SoundClip.start();
+		
 		Timer();
 	}
 	
