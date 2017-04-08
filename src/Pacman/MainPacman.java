@@ -11,7 +11,8 @@ public class MainPacman {
     }
 
     public static void init() {
-        PlayFrame.instance.setVisible(true);
-        PlayCanvas.instance.init();
+            PlayFrame.instance.setVisible(true);
+            PlayCanvas.instance.init();
+
     }
 }
