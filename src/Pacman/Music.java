@@ -1,14 +1,5 @@
 package Pacman;
 
-
-import java.io.IOException;
-import javax.sound.sampled.*;
-import  sun.audio.*;
-import  java.io.*;
-import javafx.application.Application;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import java.util.*;
 
 public class Music {
@@ -57,6 +48,7 @@ public class Music {
 	public void stop()
 	{
 		timer2.cancel();
+		SoundClip.stop();
 	}
 }
 
