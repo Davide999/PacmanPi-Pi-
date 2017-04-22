@@ -5,10 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
