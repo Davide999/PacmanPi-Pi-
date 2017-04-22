@@ -7,9 +7,12 @@ public class Music {
 	static Timer timer2 = new Timer();
 	private final static int CURING_TIME = 1000;
 	private static int seconds=0;
+	private static int secondsOfBoss=0;
 	private static int i=0;
 	private static int velocita=-5;
-	static int vettoreCambio[][]= {{-10,1},{-3,3},{-5,16},{-7,30},{-2,39}}; //[velocità][tempo di cambio]
+	private static int ripeti=0;
+	private static int BOSS=6;
+	static int vettoreCambio[][]= {{-10,1,0},{-3,3,0},{-5,16,0},{-7,29,0},{-3,39,0},{-2,41,1},{0,0,0}}; //[velocità][tempo di cambio]
 	
 	public static void Timer() {
 		
@@ -19,16 +22,52 @@ public class Music {
             @Override
             public void run()
             {
-            	seconds++;
-            	if(vettoreCambio[i][1]==seconds)
+            	
+            	if(i==BOSS)	//conta durata boss
+            	{
+            		secondsOfBoss++;
+            	}
+            	else
+            	{
+            		seconds++;
+            		
+            	}
+            	System.out.println("s= "+seconds+"  s boss= "+secondsOfBoss);
+            	if(vettoreCambio[i][1]==seconds)	//cambia la velocità
             	{
             		velocita=vettoreCambio[i][0];
+            		if(vettoreCambio[i][2]==1)
+            		{
+            			i=1;
+            			seconds=0;
+            		}
             		i++;
+            		
             	}
-            	if(seconds==3)
+            	
+            	if(ripeti==1 && i==3)	//fa bloccare lo schermo per il boss  if(ripeti==2)
+        		{
+        			i=BOSS;
+        			velocita=vettoreCambio[i][0];
+        			ripeti=1;
+        		}
+            	
+            	if(secondsOfBoss==9)	//fine boss
             	{
-            		SoundClip.start();
+            		i=1;
+            		seconds=0;
+            		secondsOfBoss=0;
+            		System.out.println("boss finito");
             	}
+            	
+            	if(seconds==3)	//fa partire la musica
+            	{
+            		if(ripeti==0)
+            			{SoundClip.start();
+            			}
+            		ripeti++;
+            		System.out.println("i= "+i);
+            	}	
             	Ghost.changeSpeed(velocita);
             	Food.changeSpeed(velocita);
             	Obstacle.changeSpeed(velocita);
@@ -49,6 +88,11 @@ public class Music {
 	{
 		timer2.cancel();
 		SoundClip.stop();
+	}
+	
+	public static int getVelocita()
+	{
+		return velocita;
 	}
 }
 

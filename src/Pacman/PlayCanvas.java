@@ -33,7 +33,7 @@ public class PlayCanvas extends java.awt.Canvas
     private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
     private Vector<Ghost> ghostVector;
-    private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,0,1,1},{2,0,1,1,0,0},{1,0,0,2,1,1},{1,0,0,1,2,0},{0,0,3,0,0,0},{0,0,0,0,3,0}};
+    private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,0,1,0},{2,0,1,1,0,0},{1,0,0,2,0,1},{1,0,0,0,2,1},{0,0,3,0,0,0},{0,0,0,0,3,0}};
 
     public final int REFRESH_TIME = 10;
     
@@ -182,6 +182,8 @@ public class PlayCanvas extends java.awt.Canvas
     }
 
     private void creaPunti() {
+    	if(Music.getVelocita()!=0)
+    	{
         generaPunti++;
         if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli))
         	for(int j=0;j<schemaOstacoli.length-1;j++)
@@ -191,10 +193,12 @@ public class PlayCanvas extends java.awt.Canvas
 		            foodVector.add(f);
 		            generaPunti = 0;
         		}
+    	}
     }
     
     private void creaOstacoli() {
-        generaOstacoli++;
+        if(Music.getVelocita()!=0)
+    	{generaOstacoli++;
         if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli))
         	for(int j=0;j<schemaOstacoli.length-1;j++)
         		if(schemaOstacoli[randomOstacoli][j]==1) {
@@ -203,7 +207,7 @@ public class PlayCanvas extends java.awt.Canvas
                     obstacleVector.add(o);
                     generaOstacoli = 0;
         		}
-
+        }
     }
     
     private void creaFantasmi() {

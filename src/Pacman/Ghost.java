@@ -66,6 +66,10 @@ public class Ghost implements Movable, Drawable, Boundable {
     public static void changeSpeed(int i)
     {
     	VELOCITA_FANTASMI = i-2;
+    	if(Music.getVelocita()==0)
+    	{
+    		VELOCITA_FANTASMI=-3;
+    	}
     }
 
 
