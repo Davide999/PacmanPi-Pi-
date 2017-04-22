@@ -8,6 +8,7 @@ public class Music {
 	private final static int CURING_TIME = 1000;
 	private static int seconds=0;
 	private static int secondsOfBoss=0;
+	private static int secondsOfGame=0;
 	private static int i=0;
 	private static int velocita=-5;
 	private static int ripeti=0;
@@ -30,8 +31,10 @@ public class Music {
             	else
             	{
             		seconds++;
-            		
             	}
+            	
+            	secondsOfGame++;
+            	
             	System.out.println("s= "+seconds+"  s boss= "+secondsOfBoss);
             	if(vettoreCambio[i][1]==seconds)	//cambia la velocità
             	{
@@ -45,7 +48,7 @@ public class Music {
             		
             	}
             	
-            	if(ripeti==1 && i==3)	//fa bloccare lo schermo per il boss  if(ripeti==2)
+            	if(ripeti==1 && i==4)	//fa bloccare lo schermo per il boss  if(ripeti==2)
         		{
         			i=BOSS;
         			velocita=vettoreCambio[i][0];
@@ -93,6 +96,11 @@ public class Music {
 	public static int getVelocita()
 	{
 		return velocita;
+	}
+	
+	public static int getTime()
+	{
+		return secondsOfGame;
 	}
 }
 

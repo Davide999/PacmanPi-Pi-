@@ -113,6 +113,7 @@ public class PlayCanvas extends java.awt.Canvas
 
         //si disegnano gli elementi nel buffer esterno
         Image sfondo = new ImageIcon(this.getClass().getResource("sprites/background/bup.png")).getImage();
+        
         buffer.drawImage(sfondo, 0, 0, this);
 
         scrollPosition += 3;
@@ -130,14 +131,15 @@ public class PlayCanvas extends java.awt.Canvas
         drawableVector.addAll(ghostVector);
         drawableVector.addAll(obstacleVector);
         drawableVector.addAll(foodVector);
-
+        buffer.drawString("Score: "+PacmanCharacter.getPoints()+"  Seconds: "+Music.getTime()+"", 25, 25);
+        
         for(Drawable d : drawableVector)
             d.paintImage(buffer);
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(workspace, 0, 0, this);
-
+        
         //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
         buffer.dispose();
     }
