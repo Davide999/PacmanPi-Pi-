@@ -18,7 +18,7 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
     private Image[] images;
     private int currentImage = 0;
     private final int SPEED = 3;
-    private int points = 0;
+    private static int points = 0;
     private int deltaCurrentImage = 1;
 
     // position and movement
@@ -79,6 +79,11 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
                 }
                 break;
             }
+    }
+    
+    public static int getPoints()
+    {
+    	return points;
     }
 
     @Override
@@ -177,6 +182,6 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
 
         //TODO: Play pacman death here
 
-        PlayCanvas.instance.stopGame();
+        PlayCanvas.instance.stopGame();        
     }
 }

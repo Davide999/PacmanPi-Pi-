@@ -8,6 +8,8 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 import java.awt.*;
+import java.util.*;
+
 import javax.swing.ImageIcon;
 
 public class Obstacle implements Movable, Drawable, Boundable {
@@ -16,8 +18,8 @@ public class Obstacle implements Movable, Drawable, Boundable {
     private boolean visible;
     private int larghezza;
     private int altezza;
-
-    private final static int VELOCITA_OSTACOLI = -4;
+  
+    private static int VELOCITA_OSTACOLI = -3;
 
     public Obstacle(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/obstacle/obstacle.png"));
@@ -49,6 +51,11 @@ public class Obstacle implements Movable, Drawable, Boundable {
     @Override
     public void paintImage(Graphics2D buffer) {
         buffer.drawImage(image, x, y, null);
+    }
+    
+    public static void changeSpeed(int i)
+    {
+    	VELOCITA_OSTACOLI=i;
     }
 }
 

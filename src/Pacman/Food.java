@@ -8,6 +8,8 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 import java.awt.*;
+import java.util.*;
+
 import javax.swing.ImageIcon;
 
 public class Food implements Movable, Drawable, Boundable{
@@ -17,7 +19,9 @@ public class Food implements Movable, Drawable, Boundable{
     private int larghezza;
     private int altezza;
 
-    private final static int VELOCITA_PUNTI = -4;
+    
+    private static int VELOCITA_PUNTI = -3;
+    
 
     public Food(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/food/food.png"));
@@ -50,5 +54,11 @@ public class Food implements Movable, Drawable, Boundable{
     public void paintImage(Graphics2D buffer) {
         buffer.drawImage(image, x, y, null);
     }
+    
+    public static void changeSpeed(int i)
+    {
+    	VELOCITA_PUNTI = i;
+    }
+
 }
 

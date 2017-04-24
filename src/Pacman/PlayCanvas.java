@@ -5,10 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
+import java.io.File;
+import java.util.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class PlayCanvas extends java.awt.Canvas
         implements ActionListener {
@@ -29,17 +33,19 @@ public class PlayCanvas extends java.awt.Canvas
     final private int YDistanzaOstacoli=80; //la distanza verticale tra un ostacolo e l'altro
     final private int YDistanzaBase=30;	//la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli=1; //il rateo con cui appaiono gli ostacoli: pi� basso=pi� distanti
-
+    
     private Vector<Food> foodVector;
     private Vector<Obstacle> obstacleVector;
     private Vector<Ghost> ghostVector;
-    private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,1,1,1},{2,0,1,1,0,0},{1,1,0,2,1,1},{0,0,1,1,2,0},{0,0,3,0,0,0},{0,0,0,0,3,0}};
+    private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,0,1,0},{2,0,1,1,0,0},{1,0,0,2,0,1},{1,0,0,0,2,1},{0,0,3,0,0,0},{0,0,0,0,3,0}};
 
     public final int REFRESH_TIME = 10;
+    
     private boolean antonioStellaBottomTile = true;
 
     private Timer timer; // timeout
-
+    Music m=new Music();
+    
     private PlayCanvas() {
         foodVector = new Vector<>();
         obstacleVector = new Vector<>();
@@ -50,16 +56,21 @@ public class PlayCanvas extends java.awt.Canvas
         generaOstacoli = 0;
 
         // start timer timeout
+        
         timer = new Timer(REFRESH_TIME, this);
+
     }
 
     public void init() {
         timer.start();
         antonioStellaBottomTile = false;
+        m.start();
     }
+    
 
     public void stopGame(){
         timer.stop();
+        m.stop();
     }
 
     public int getScrollPosition() {
@@ -106,6 +117,7 @@ public class PlayCanvas extends java.awt.Canvas
 
         //si disegnano gli elementi nel buffer esterno
         Image sfondo = new ImageIcon(this.getClass().getResource("sprites/background/bup.png")).getImage();
+        
         buffer.drawImage(sfondo, 0, 0, this);
 
         scrollPosition += 3;
@@ -123,14 +135,15 @@ public class PlayCanvas extends java.awt.Canvas
         drawableVector.addAll(ghostVector);
         drawableVector.addAll(obstacleVector);
         drawableVector.addAll(foodVector);
-
+        buffer.drawString("Score: "+PacmanCharacter.getPoints()+"  Seconds: "+Music.getTime()+"", 25, 25);
+        
         for(Drawable d : drawableVector)
             d.paintImage(buffer);
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(workspace, 0, 0, this);
-
+        
         //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
         buffer.dispose();
     }
@@ -175,6 +188,8 @@ public class PlayCanvas extends java.awt.Canvas
     }
 
     private void creaPunti() {
+    	if(Music.getVelocita()!=0)
+    	{
         generaPunti++;
         if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli))
         	for(int j=0;j<schemaOstacoli.length-1;j++)
@@ -184,10 +199,12 @@ public class PlayCanvas extends java.awt.Canvas
 		            foodVector.add(f);
 		            generaPunti = 0;
         		}
+    	}
     }
     
     private void creaOstacoli() {
-        generaOstacoli++;
+        if(Music.getVelocita()!=0)
+    	{generaOstacoli++;
         if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli))
         	for(int j=0;j<schemaOstacoli.length-1;j++)
         		if(schemaOstacoli[randomOstacoli][j]==1) {
@@ -196,7 +213,7 @@ public class PlayCanvas extends java.awt.Canvas
                     obstacleVector.add(o);
                     generaOstacoli = 0;
         		}
-
+        }
     }
     
     private void creaFantasmi() {
@@ -215,6 +232,6 @@ public class PlayCanvas extends java.awt.Canvas
         	}
         }
     }
-    
-    
 }
+
+
