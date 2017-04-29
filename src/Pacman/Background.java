@@ -8,7 +8,7 @@ import java.awt.*;
 import javax.swing.ImageIcon;
 
 
-public class Background {
+public class Background implements Runnable {
 
     public static final Background instance = new Background();
     private boolean active = true;
@@ -74,6 +74,12 @@ public class Background {
     public void toggleBackground() {
         active = !active;
     }
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

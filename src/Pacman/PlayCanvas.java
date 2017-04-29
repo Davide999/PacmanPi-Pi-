@@ -13,9 +13,11 @@ import javax.swing.Timer;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import matrice.Threads;
 
-public class PlayCanvas extends java.awt.Canvas
-        implements ActionListener {
+import java.lang.Thread;
+
+public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
     public static PlayCanvas instance = new PlayCanvas();
 
@@ -58,7 +60,8 @@ public class PlayCanvas extends java.awt.Canvas
         // start timer timeout
         
         timer = new Timer(REFRESH_TIME, this);
-
+        Threads t = new Threads();
+        t.start();
     }
 
     public void init() {
@@ -107,6 +110,8 @@ public class PlayCanvas extends java.awt.Canvas
     }
 
     @Override
+	
+		// TODO Auto-generated method stub
     public void paint(Graphics g) {
         //super.paint(g);
         if(antonioStellaBottomTile) return;
@@ -147,6 +152,7 @@ public class PlayCanvas extends java.awt.Canvas
         //per liberare spazio in memoria si elimina l'immagine precedentemente memorizzata
         buffer.dispose();
     }
+    
 
     /**
      * Updates background each time the timer expires
@@ -232,6 +238,22 @@ public class PlayCanvas extends java.awt.Canvas
         	}
         }
     }
+
+	
 }
+
+class Threads extends Thread
+{
+	public Threads()
+	{
+		
+	}
+	
+	public void run()
+	{
+	
+	}
+}
+
 
 
