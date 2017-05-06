@@ -8,13 +8,10 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 import java.awt.*;
-import java.util.*;
-
-
 import javax.swing.ImageIcon;
 
 
-public class Ghost implements Movable, Drawable, Boundable {
+public class Ghost extends Thing {
     private int x, y;
     private Image image;
     private boolean visible;

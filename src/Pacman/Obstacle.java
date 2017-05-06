@@ -8,11 +8,9 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 import java.awt.*;
-import java.util.*;
-
 import javax.swing.ImageIcon;
 
-public class Obstacle implements Movable, Drawable, Boundable {
+public class Obstacle extends Thing {
     private int x, y;
     private Image image;
     private boolean visible;
