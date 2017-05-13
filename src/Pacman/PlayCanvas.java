@@ -5,21 +5,21 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.*;
-
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-//import matrice.Threads;
-
 import java.lang.Thread;
 
 public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
-    public static PlayCanvas instance = new PlayCanvas();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static PlayCanvas instance = new PlayCanvas();
 
     private int scrollPosition = 0;
     private int scrollPosition2 = 0;
@@ -36,9 +36,8 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     final private int YDistanzaBase=30;	//la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli=1; //il rateo con cui appaiono gli ostacoli: pi� basso=pi� distanti
     
-    private Vector<Food> foodVector;
-    private Vector<Obstacle> obstacleVector;
-    private Vector<Ghost> ghostVector;
+    
+    private Vector<Thing> characters;
     private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,0,1,0},{2,0,1,1,0,0},{1,0,0,2,0,1},{1,0,0,0,2,1},{0,0,3,0,0,0},{0,0,0,0,3,0}};
 
     public final int REFRESH_TIME = 10;
@@ -46,12 +45,10 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     private boolean antonioStellaBottomTile = true;
 
     private Timer timer; // timeout
-    Music m=new Music();
+    Thread t = new ThreadGenerateCharacters();
     
     private PlayCanvas() {
-        foodVector = new Vector<>();
-        obstacleVector = new Vector<>();
-        ghostVector = new Vector<>();
+        characters = new Vector<>();
         livelloPunti = 1;
         generaPunti = 0;
         livelloOstacoli = 1;
@@ -60,20 +57,21 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
         // start timer timeout
         
         timer = new Timer(REFRESH_TIME, this);
-        Threads t = new Threads();
-        t.start();
     }
 
     public void init() {
         timer.start();
+        t.start();
         antonioStellaBottomTile = false;
-        m.start();
+        Music.instance.start();
+        
     }
     
 
-    public void stopGame(){
-        timer.stop();
-        m.stop();
+    public void stopGame() throws InterruptedException{
+    	Music.instance.stop();
+        t.join();
+        timer.stop();  
     }
 
     public int getScrollPosition() {
@@ -91,17 +89,9 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     public int getScrollPosition4() {
         return scrollPosition4;
     }
-
-    public Vector<Food> getFoodVector() {
-        return foodVector;
-    }
-
-    public Vector<Obstacle> getObstacleVector() {
-        return obstacleVector;
-    }
     
-    public Vector<Ghost> getGhostVector() {
-        return ghostVector;
+    public Vector<Thing> getCharacters() {
+    	return characters;
     }
 
     @Override
@@ -110,11 +100,10 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     }
 
     @Override
-	
-		// TODO Auto-generated method stub
     public void paint(Graphics g) {
+    	
         //super.paint(g);
-        if(antonioStellaBottomTile) return;
+        if(antonioStellaBottomTile) return; // beautiful sound strange shape
 
         //si gestisce lo spazio da memorizzare nel buffer, ricavandolo da tutta l'area visualizzabile
         Image workspace = createImage(getWidth(), getHeight());
@@ -135,15 +124,11 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
         // moves pacman and draws it
         PacmanCharacter.instance.move();
         PacmanCharacter.instance.paintImage(buffer);
-
-        Vector<Drawable> drawableVector = new Vector<>();
-        drawableVector.addAll(ghostVector);
-        drawableVector.addAll(obstacleVector);
-        drawableVector.addAll(foodVector);
-        buffer.drawString("Score: "+PacmanCharacter.getPoints()+"  Seconds: "+Music.getTime()+"", 25, 25);
         
-        for(Drawable d : drawableVector)
-            d.paintImage(buffer);
+        buffer.drawString("Score: "+PacmanCharacter.getPoints()+"  Seconds: "+Music.instance.getTime()+"", 25, 25);
+        
+        for(Drawable d : characters)
+            d.paintImage(buffer); 
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
@@ -163,96 +148,72 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         PacmanCharacter.instance.move();
         randomOstacoli=(int) Math.floor(Math.random()*schemaOstacoli.length);
-        creaPunti();
-        creaOstacoli();
-        creaFantasmi();
-        for (int i = 0; i < foodVector.size(); i++) {
-            Food p = foodVector.get(i);
-            if (p.isVisible()) {
-                p.move();
+        generateCharacters();
+        
+        for (int i = 0; i < characters.size(); i++) {
+            Movable m = characters.get(i);
+            if (m.isVisible()) {
+                m.move();
             } else {
-                foodVector.remove(i);
+            	characters.remove(i);
             }
         }
-        for (int j = 0; j < obstacleVector.size(); j++) {
-            Obstacle o = obstacleVector.get(j);
-            if (o.isVisible()) {
-                o.move();
-            } else {
-                obstacleVector.remove(j);
-            }
-        }
-        for (int j = 0; j < ghostVector.size(); j++) {
-            Ghost g = ghostVector.get(j);
-            if (g.isVisible()) {
-                g.move();
-            } else {
-                ghostVector.remove(j);
-            }
-        }
+        
         repaint();
     }
-
-    private void creaPunti() {
-    	if(Music.getVelocita()!=0)
-    	{
-        generaPunti++;
-        if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli))
-        	for(int j=0;j<schemaOstacoli.length-1;j++)
-        		if(schemaOstacoli[randomOstacoli][j]==2) {
-		            int y_p = j*YDistanzaOstacoli+YDistanzaBase;
-		            Food f = new Food(PlayFrame.instance.getWidth(), y_p);
-		            foodVector.add(f);
-		            generaPunti = 0;
-        		}
-    	}
+    
+    private void generateCharacters() {
+    	
     }
     
-    private void creaOstacoli() {
-        if(Music.getVelocita()!=0)
-    	{generaOstacoli++;
-        if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli))
-        	for(int j=0;j<schemaOstacoli.length-1;j++)
-        		if(schemaOstacoli[randomOstacoli][j]==1) {
-        			int y_o = j*YDistanzaOstacoli+YDistanzaBase;
-            		Obstacle o = new Obstacle(PlayFrame.instance.getWidth(), y_o);
-                    obstacleVector.add(o);
-                    generaOstacoli = 0;
-        		}
+    // puro stile Java
+    class ThreadGenerateCharacters extends Thread
+    {
+    	public void run()
+        {
+    		while(true) {
+	    		if(Music.instance.getVelocita()!=0) {
+	    	        generaPunti++;
+	    	        if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli))
+	    	        	for(int j=0;j<schemaOstacoli.length-1;j++)
+	    	        		if(schemaOstacoli[randomOstacoli][j]==2) {
+	    			            int y_p = j*YDistanzaOstacoli+YDistanzaBase;
+	    			            Food f = new Food(PlayFrame.instance.getWidth(), y_p);
+	    			            characters.add(f);
+	    			            generaPunti = 0;
+	    	        		}
+	    	        generaOstacoli++;
+	    	        if (generaOstacoli >= 100 - ((livelloOstacoli + 1) * rateoOstacoli))
+	    	        	for(int j=0;j<schemaOstacoli.length-1;j++)
+	    	        		if(schemaOstacoli[randomOstacoli][j]==1) {
+	    	        			int y_o = j*YDistanzaOstacoli+YDistanzaBase;
+	    	            		Obstacle o = new Obstacle(PlayFrame.instance.getWidth(), y_o);
+	    	                    characters.add(o);
+	    	                    generaOstacoli = 0;
+	    	        		}
+	        	}
+	        	generaFantasmi++;
+	            if (generaFantasmi >= 100 - ((livelloFantasmi + 1) * rateoOstacoli)) {
+	            	for(int j=0;j<schemaOstacoli.length-1;j++)
+	            	{    		
+	            		if(schemaOstacoli[randomOstacoli][j]==3)
+	            		{
+	            			int y_f = j*YDistanzaOstacoli+YDistanzaBase;
+	                		Ghost f = new Ghost(PlayFrame.instance.getWidth(), y_f);
+	                		characters.add(f);
+	                        generaFantasmi = 0;
+	            		}
+	            	}
+	            }
+	            try {
+					Thread.sleep(PlayCanvas.instance.REFRESH_TIME);
+				} catch (InterruptedException e) {
+					System.err.println("Schifo");
+					e.printStackTrace();
+				}
+    		}
         }
     }
-    
-    private void creaFantasmi() {
-        generaFantasmi++;
-        if (generaFantasmi >= 100 - ((livelloFantasmi + 1) * rateoOstacoli)) {
-        	
-        	for(int j=0;j<schemaOstacoli.length-1;j++)
-        	{    		
-        		if(schemaOstacoli[randomOstacoli][j]==3)
-        		{
-        			int y_f = j*YDistanzaOstacoli+YDistanzaBase;
-            		Ghost f = new Ghost(PlayFrame.instance.getWidth(), y_f);
-                    ghostVector.add(f);
-                    generaFantasmi = 0;
-        		}
-        	}
-        }
-    }
-
-	
-}
-
-class Threads extends Thread
-{
-	public Threads()
-	{
-		
-	}
-	
-	public void run()
-	{
-	
-	}
 }
 
 

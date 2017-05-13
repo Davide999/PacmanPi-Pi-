@@ -6,6 +6,10 @@ import java.awt.event.KeyListener;
 
 public class PlayFrame extends JFrame implements KeyListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static PlayFrame instance = new PlayFrame();
 
 	private PlayFrame(){

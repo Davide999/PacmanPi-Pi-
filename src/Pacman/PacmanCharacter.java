@@ -62,18 +62,19 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
         vert += deltaVert;
 
         Circle pacmanCirc = getDimensionCircle();
-
-        Vector<Boundable> b = new Vector<>();
-        Vector<Food> foodVector = PlayCanvas.instance.getFoodVector();
-        b.addAll(foodVector);
-        b.addAll(PlayCanvas.instance.getObstacleVector());
-        b.addAll(PlayCanvas.instance.getGhostVector());
-
+        
+        Vector<Thing> b = PlayCanvas.instance.getCharacters();
         for (Boundable obj : b)
             if (pacmanCirc.intersects(obj.getBounds())) {
-                if (!(obj instanceof Food)) die();
-                else {
-                    foodVector.remove(obj);
+                if (!(obj instanceof Food))
+					try {
+						die();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				else {
+                    b.remove(obj);
                     points += 10;
                     System.out.println(points);
                 }
@@ -177,7 +178,7 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
         return dead;
     }
 
-    public void die() {
+    public void die() throws InterruptedException {
         this.dead = true;
 
         //TODO: Play pacman death here

@@ -1,38 +1,31 @@
 package Pacman;
 
-
-import java.io.IOException;
-import javax.sound.sampled.*;
-import  sun.audio.*;
-import  java.io.*;
-import javafx.application.Application;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
 import java.util.*;
 
 public class Music {
 	
-	static Timer timer2 = new Timer();
-	private final static int CURING_TIME = 1000;
-	private static int seconds=0;
-	private static int secondsOfBoss=0;
-	private static int secondsOfGame=0;
-	private static int i=0;
-	private static int velocita=-5;
-	private static int ripeti=0;
-	private static int BOSS=6;
-	static int vettoreCambio[][]= {{-10,1,0},{-3,3,0},{-5,16,0},{-7,29,0},{-3,39,0},{-2,41,1},{0,0,0}}; //[velocità][tempo di cambio]
+	public static Music instance = new Music();
 	
-	public static void Timer() {
+	private Timer timer2 = new Timer();
+	private final int CURING_TIME = 1000;
+	private int seconds=0;
+	private int secondsOfBoss=0;
+	private int secondsOfGame=0;
+	private int i=0;
+	private int velocita=-5;
+	private int ripeti=0;
+	private int BOSS=6;
+	private int vettoreCambio[][]= {{-10,1,0},{-3,3,0},{-5,16,0},{-7,29,0},{-3,39,0},{-2,41,1},{0,0,0}}; //[velocità][tempo di cambio]
+	private TimerTask task;
+	
+	private Music() {}
+	
+	public void Timer() {
 		
-        TimerTask task;
-
         task = new TimerTask() {
             @Override
             public void run()
-            {
-            	
+            {	
             	if(i==BOSS)	//conta durata boss
             	{
             		secondsOfBoss++;
@@ -41,7 +34,6 @@ public class Music {
             	{
             		seconds++;
             	}
-            	
             	secondsOfGame++;
             	
             	System.out.println("s= "+seconds+"  s boss= "+secondsOfBoss);
@@ -53,8 +45,7 @@ public class Music {
             			i=1;
             			seconds=0;
             		}
-            		i++;
-            		
+            		i++;	
             	}
             	
             	if(ripeti==1 && i==4)	//fa bloccare lo schermo per il boss  if(ripeti==2)
@@ -85,28 +76,27 @@ public class Music {
             	Obstacle.changeSpeed(velocita);
             }
         };
-         timer2.schedule(task, 0, CURING_TIME);
-         
+         timer2.schedule(task, 0, CURING_TIME);  
     }
 	
 
 	public void start()
 	{
-		
 		Timer();
 	}
 	
 	public void stop()
 	{
 		timer2.cancel();
+		timer2.purge();
 	}
 	
-	public static int getVelocita()
+	public int getVelocita()
 	{
 		return velocita;
 	}
 	
-	public static int getTime()
+	public int getTime()
 	{
 		return secondsOfGame;
 	}
