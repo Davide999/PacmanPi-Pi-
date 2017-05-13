@@ -4,6 +4,12 @@ import java.util.*;
 
 public class Music {
 	
+	public static void reInit() {
+		SoundClip.stop();
+		instance = null;
+		instance = new Music();
+	}
+	
 	public static Music instance = new Music();
 	
 	private Timer timer2 = new Timer();

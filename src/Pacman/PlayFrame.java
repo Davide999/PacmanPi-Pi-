@@ -5,6 +5,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class PlayFrame extends JFrame implements KeyListener{
+	
+	public static void reInit() {
+		instance.setVisible(false);
+    	instance.dispose();
+		instance = null;
+		instance = new PlayFrame();
+	}
 
 	/**
 	 * 
@@ -32,6 +39,9 @@ public class PlayFrame extends JFrame implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         PacmanCharacter.instance.handleKeyPressed(e);
+        if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+        	MainPacman.reInit();
+        }
     }
 
     @Override

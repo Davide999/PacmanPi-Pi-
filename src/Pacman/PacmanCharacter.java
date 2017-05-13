@@ -10,6 +10,11 @@ import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 public class PacmanCharacter implements ActionListener, Movable, Drawable {
+	
+	public static void reInit() {
+		instance = null;
+		instance = new PacmanCharacter();
+	}
 
     // singleton instance
     public static PacmanCharacter instance = new PacmanCharacter();

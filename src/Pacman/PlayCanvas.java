@@ -13,6 +13,11 @@ import javafx.scene.media.MediaPlayer;
 import java.lang.Thread;
 
 public class PlayCanvas extends java.awt.Canvas implements ActionListener {
+	
+	public static void reInit() {
+		instance = null;
+		instance = new PlayCanvas();
+	}
 
     /**
 	 * 
@@ -63,15 +68,12 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
         timer.start();
         t.start();
         antonioStellaBottomTile = false;
-        Music.instance.start();
-        
+        Music.instance.start(); 
     }
     
-
     public void stopGame() throws InterruptedException{
-    	Music.instance.stop();
-        t.join();
-        timer.stop();  
+    	SoundClip.stop();
+        MainPacman.reInit();
     }
 
     public int getScrollPosition() {

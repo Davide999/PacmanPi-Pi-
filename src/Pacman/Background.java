@@ -9,8 +9,13 @@ import javax.swing.ImageIcon;
 
 
 public class Background implements Runnable {
+	
+	public static void reInit() {
+		instance = null;
+		instance = new Background();
+	}
 
-    public static final Background instance = new Background();
+    public static Background instance = new Background();
     private boolean active = true;
 
     private final Image somethingCalledOroLoop = new ImageIcon(this.getClass()

@@ -13,6 +13,14 @@ public class MainPacman {
     public static void init() {
             PlayFrame.instance.setVisible(true);
             PlayCanvas.instance.init();
-
+    }
+    
+    public static void reInit() {
+    	Background.reInit();
+    	Music.reInit();
+    	PacmanCharacter.reInit();
+    	PlayCanvas.reInit();
+    	PlayFrame.reInit();
+    	init();
     }
 }
