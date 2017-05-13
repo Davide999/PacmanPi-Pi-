@@ -64,7 +64,7 @@ public class Ghost extends Thing {
     public static void changeSpeed(int i)
     {
     	VELOCITA_FANTASMI = i-2;
-    	if(Music.getVelocita()==0)
+    	if(Music.instance.getVelocita()==0)
     	{
     		VELOCITA_FANTASMI=-3;
     	}

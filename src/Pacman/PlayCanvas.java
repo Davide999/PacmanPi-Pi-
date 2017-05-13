@@ -34,6 +34,7 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     final private int YDistanzaBase=30;	//la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli=1; //il rateo con cui appaiono gli ostacoli: pi� basso=pi� distanti
     
+    
     private Vector<Thing> characters;
     private int schemaOstacoli[][]={{0,2,1,0,0,1},{1,0,2,0,1,0},{2,0,1,1,0,0},{1,0,0,2,0,1},{1,0,0,0,2,1},{0,0,3,0,0,0},{0,0,0,0,3,0}};
 
@@ -42,7 +43,7 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     private boolean antonioStellaBottomTile = true;
 
     private Timer timer; // timeout
-    Music m=new Music();
+    Thread t = new ThreadGenerateCharacters();
     
     private PlayCanvas() {
         characters = new Vector<>();
@@ -58,17 +59,17 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
     public void init() {
         timer.start();
-        Thread t = new ThreadGenerateCharacters();
         t.start();
         antonioStellaBottomTile = false;
-        m.start();
+        Music.instance.start();
         
     }
     
 
-    public void stopGame(){
-        timer.stop();
-        m.stop();
+    public void stopGame() throws InterruptedException{
+    	Music.instance.stop();
+        t.join();
+        timer.stop();  
     }
 
     public int getScrollPosition() {
@@ -122,7 +123,7 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
         PacmanCharacter.instance.move();
         PacmanCharacter.instance.paintImage(buffer);
         
-        buffer.drawString("Score: "+PacmanCharacter.getPoints()+"  Seconds: "+Music.getTime()+"", 25, 25);
+        buffer.drawString("Score: "+PacmanCharacter.getPoints()+"  Seconds: "+Music.instance.getTime()+"", 25, 25);
         
         for(Drawable d : characters)
             d.paintImage(buffer); 
@@ -169,7 +170,7 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     	public void run()
         {
     		while(true) {
-	    		if(Music.getVelocita()!=0) {
+	    		if(Music.instance.getVelocita()!=0) {
 	    	        generaPunti++;
 	    	        if (generaPunti >= 100 - ((livelloPunti + 1) * rateoOstacoli))
 	    	        	for(int j=0;j<schemaOstacoli.length-1;j++)
