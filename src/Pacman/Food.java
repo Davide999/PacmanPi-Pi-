@@ -10,16 +10,14 @@ import javafx.geometry.Bounds;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-public class Food extends Thing{
+public class Food extends Thing {
     private int x, y;
     private Image image;
     private boolean visible;
     private int larghezza;
     private int altezza;
 
-    
     private static int VELOCITA_PUNTI = -3;
-    
 
     public Food(int x, int y) {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/food/food.png"));
@@ -52,10 +50,9 @@ public class Food extends Thing{
     public void paintImage(Graphics2D buffer) {
         buffer.drawImage(image, x, y, null);
     }
-    
-    public static void changeSpeed(int i)
-    {
-    	VELOCITA_PUNTI = i;
+
+    public static void changeSpeed(int i) {
+        VELOCITA_PUNTI = i;
     }
 
 }

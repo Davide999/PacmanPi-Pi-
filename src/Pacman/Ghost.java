@@ -22,7 +22,6 @@ public class Ghost extends Thing {
     private static int VELOCITA_FANTASMI = -5;
 
     public Ghost(int x, int y) {
-    	   
         ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
         image = ii.getImage();
         visible = true;
@@ -31,7 +30,6 @@ public class Ghost extends Thing {
         this.v_y = (int) Math.floor(Math.random() * 5);
         larghezza = image.getWidth(null);
         altezza = image.getHeight(null);
-        
     }
 
     @Override
@@ -52,7 +50,6 @@ public class Ghost extends Thing {
         this.y += this.v_y;
         if (y > PlayFrame.instance.getHeight() - altezza || y < 0) {
             this.v_y *= -1;
-
         }
     }
 
@@ -60,16 +57,12 @@ public class Ghost extends Thing {
     public void paintImage(Graphics2D buffer) {
         buffer.drawImage(image, x, y, null);
     }
-    
-    public static void changeSpeed(int i)
-    {
-    	VELOCITA_FANTASMI = i-2;
-    	if(Music.instance.getVelocita()==0)
-    	{
-    		VELOCITA_FANTASMI=-3;
-    	}
+
+    public static void changeSpeed(int i) {
+        VELOCITA_FANTASMI = i - 2;
+        if (Music.instance.getVelocita() == 0) {
+            VELOCITA_FANTASMI = -3;
+        }
     }
-
-
 }
 

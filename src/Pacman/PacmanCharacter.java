@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Iterator;
 import java.util.Vector;
 
 public class PacmanCharacter implements ActionListener, Movable, Drawable {
@@ -22,7 +23,7 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
     // images of the sprite
     private Image[] images;
     private int currentImage = 0;
-    private final int SPEED = 3;
+    private final int SPEED = 6;
     private static int points = 0;
     private int deltaCurrentImage = 1;
 
@@ -67,24 +68,23 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
         vert += deltaVert;
 
         Circle pacmanCirc = getDimensionCircle();
-        
-        Vector<Thing> b = PlayCanvas.instance.getCharacters();
-        for (Boundable obj : b)
+
+        for (Iterator<Thing> b = PlayCanvas.instance.getCharacters().iterator();b.hasNext();) {
+            Thing obj = b.next();
             if (pacmanCirc.intersects(obj.getBounds())) {
                 if (!(obj instanceof Food))
-					try {
-						die();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				else {
-                    b.remove(obj);
+                    try {
+                        die();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                else {
+                    b.remove();
                     points += 10;
-                    System.out.println(points);
                 }
                 break;
             }
+        }
     }
     
     public static int getPoints()
@@ -179,15 +179,8 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
         currentImage += deltaCurrentImage;
     }
 
-    public boolean isDead() {
-        return dead;
-    }
-
     public void die() throws InterruptedException {
         this.dead = true;
-
-        //TODO: Play pacman death here
-
         PlayCanvas.instance.stopGame();        
     }
 }

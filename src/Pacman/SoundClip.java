@@ -14,22 +14,20 @@ public class SoundClip {
 	private static Thread soundThread;
 	
 	public static void stop() {
-		thaClip.stop();
+		if(thaClip!=null) thaClip.stop();
 	}
 
 	private static void playSound(File sound) {
-		soundThread = new Thread(new Runnable() {
-			public void run() {
-				try {
-					Clip clip = AudioSystem.getClip();
-					thaClip = clip;
-					clip.open(AudioSystem.getAudioInputStream(sound));
-					clip.start();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		soundThread = new Thread(() -> {
+            try {
+                Clip clip = AudioSystem.getClip();
+                thaClip = clip;
+                clip.open(AudioSystem.getAudioInputStream(sound));
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 		soundThread.start();
 	}
 
