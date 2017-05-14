@@ -41,7 +41,7 @@ public class Music {
                 }
                 secondsOfGame++;
 
-                System.out.println("s= " + seconds + "  s boss= " + secondsOfBoss);
+                //System.out.println("s= " + seconds + "  s boss= " + secondsOfBoss);
                 if (vettoreCambio[i][1] == seconds)    //cambia la velocit�
                 {
                     velocita = vettoreCambio[i][0];
@@ -64,7 +64,7 @@ public class Music {
                     i = 1;
                     seconds = 0;
                     secondsOfBoss = 0;
-                    System.out.println("boss finito");
+                    //System.out.println("boss finito");
                 }
 
                 if (seconds == 3)    //fa partire la musica
@@ -73,7 +73,7 @@ public class Music {
                         SoundClip.start();
                     }
                     ripeti++;
-                    System.out.println("i= " + i);
+                    //System.out.println("i= " + i);
                 }
                 Ghost.changeSpeed(velocita);
                 Food.changeSpeed(velocita);

@@ -38,10 +38,17 @@ public class PlayFrame extends JFrame implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        PacmanCharacter.instance.handleKeyPressed(e);
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            try {
+                MainPacman.stopGame();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
             MainPacman.reInit();
+            instance.setVisible(false);
+            MainPacman.showMenu();
         }
+        PacmanCharacter.instance.handleKeyPressed(e);
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.lang.Thread;
 public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
     public static void reInit() {
+        SoundClip.stop();
         instance.continueGenerateCharacters = false;
         try {
             instance.generateCharacters.join();
@@ -45,7 +46,7 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     private int rateoOstacoli = 1; // il rateo con cui appaiono gli ostacoli: più basso=più distanti
 
 
-    private Vector<Thing> characters;
+    private final Vector<Thing> characters;
     private int schemaOstacoli[][] = {
             {0, 2, 1, 0, 0, 1},
             {1, 0, 2, 0, 1, 0},
@@ -78,11 +79,6 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
         generateCharacters.start();
         doNotPaint = false;
         Music.instance.start();
-    }
-
-    public void stopGame() throws InterruptedException {
-        SoundClip.stop();
-        MainPacman.reInit();
     }
 
     public int getScrollPosition() {
@@ -133,8 +129,10 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
         buffer.drawString("Score: " + PacmanCharacter.getPoints() + "  Seconds: " + Music.instance.getTime() + "", 25, 25);
 
-        for (Drawable d : characters)
-            d.paintImage(buffer);
+        synchronized (characters) {
+            for (Drawable d : characters)
+                d.paintImage(buffer);
+        }
 
         //si visualizza l'immagine del buffer esterno
         Graphics2D g2 = (Graphics2D) g;
@@ -177,7 +175,9 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
                             if (schemaOstacoli[randomOstacoli][j] == 2) {
                                 int y_p = j * ObstacleDistanceY + BaseDistanceY;
                                 Food f = new Food(PlayFrame.instance.getWidth(), y_p);
-                                characters.add(f);
+                                synchronized (characters) {
+                                    characters.add(f);
+                                }
                                 generaPunti = 0;
                             }
                     generaOstacoli++;
@@ -186,7 +186,9 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
                             if (schemaOstacoli[randomOstacoli][j] == 1) {
                                 int y_o = j * ObstacleDistanceY + BaseDistanceY;
                                 Obstacle o = new Obstacle(PlayFrame.instance.getWidth(), y_o);
-                                characters.add(o);
+                                synchronized (characters) {
+                                    characters.add(o);
+                                }
                                 generaOstacoli = 0;
                             }
                 }
@@ -195,8 +197,10 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
                     for (int j = 0; j < schemaOstacoli.length - 1; j++) {
                         if (schemaOstacoli[randomOstacoli][j] == 3) {
                             int y_f = j * ObstacleDistanceY + BaseDistanceY;
-                            Ghost f = new Ghost(PlayFrame.instance.getWidth(), y_f);
-                            characters.add(f);
+                            Ghost g = new Ghost(PlayFrame.instance.getWidth(), y_f);
+                            synchronized (characters) {
+                                characters.add(g);
+                            }
                             generaFantasmi = 0;
                         }
                     }
