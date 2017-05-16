@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -44,7 +48,8 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     final private int ObstacleDistanceY = 80; // la distanza verticale tra un ostacolo e l'altro
     final private int BaseDistanceY = 30; // la distanza verticale dalla cima dello schermo al primo ostacolo
     private int rateoOstacoli = 1; // il rateo con cui appaiono gli ostacoli: più basso=più distanti
-
+    private FileReader fileReader;
+    private BufferedReader reader;
 
     private final Vector<Thing> characters;
     private int schemaOstacoli[][] = {
@@ -75,10 +80,10 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     }
 
     public void init() {
+    	Music.instance.start();
         timer.start();
         generateCharacters.start();
         doNotPaint = false;
-        Music.instance.start();
     }
 
     public int getScrollPosition() {
@@ -126,8 +131,17 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
         // moves pacman and draws it
         PacmanCharacter.instance.paintImage(buffer);
-
-        buffer.drawString("Score: " + PacmanCharacter.getPoints() + "  Seconds: " + Music.instance.getTime() + "", 25, 25);
+        
+        try {
+			fileReader = new FileReader("BestScore.txt");
+			reader = new BufferedReader(fileReader);
+	        buffer.drawString("Score: " + PacmanCharacter.getPoints() + "  Best Score: " + reader.readLine() + "  Seconds: " + Music.instance.getTime() + "", 25, 25);
+	        reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
         synchronized (characters) {
             for (Drawable d : characters)

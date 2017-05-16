@@ -59,7 +59,7 @@ public class Music {
                     ripeti = 1;
                 }
 
-                if (secondsOfBoss == 9)    //fine boss
+                if (secondsOfBoss == 10)    //fine boss
                 {
                     i = 1;
                     seconds = 0;
@@ -69,9 +69,10 @@ public class Music {
 
                 if (seconds == 3)    //fa partire la musica
                 {
-                    if (ripeti == 0) {
+                    /*if (ripeti == 0) {
                         SoundClip.start();
-                    }
+                    }*/
+                	SoundClip.start();
                     ripeti++;
                     //System.out.println("i= " + i);
                 }

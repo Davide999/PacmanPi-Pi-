@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Vector;
 
@@ -24,7 +28,7 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
     private Image[] images;
     private int currentImage = 0;
     private final int SPEED = 6;
-    private static int points = 0;
+    private static long points = 0;
     private int deltaCurrentImage = 1;
 
     // position and movement
@@ -34,9 +38,11 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
     private int deltaVert = 0;
     private int width;
     private int height;
-    private boolean dead = false;
+    
+    private FileReader fileReader;
+    private BufferedReader reader;
 
-    private PacmanCharacter() {
+	private PacmanCharacter() {
         // number of images for the sprite
         final int numImages = 13;
 
@@ -75,14 +81,12 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
                 Thing obj = b.next();
                 if (pacmanCirc.intersects(obj.getBounds())) {
                     if (!(obj instanceof Food))
-                        try {
-                            die();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    {
+                    	die();      
+                    }
                     else {
                         b.remove();
-                        points += 10;
+                        points += 1;
                     }
                     break;
                 }
@@ -90,7 +94,7 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
         }
     }
 
-    public static int getPoints()
+    public static long getPoints()
     {
     	return points;
     }
@@ -182,8 +186,41 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
         currentImage += deltaCurrentImage;
     }
 
-    public void die() throws InterruptedException {
-        this.dead = true;
-        MainPacman.stopGame();
+    public void die() {
+    	
+    	long best=0;
+    	try
+    	{
+    	fileReader = new FileReader("BestScore.txt");
+    	reader = new BufferedReader(fileReader);
+    	best= Long.parseLong(reader.readLine());
+    	reader.close();
+    	}
+    	catch (IOException e)
+    	{
+    		
+    	}
+    	
+    	if(points>best)
+    	{
+	        try
+	        {
+	        		PrintWriter writer = new PrintWriter("BestScore.txt", "UTF-8");
+	        		writer.println(points);
+	        		writer.close();
+	        		
+	        }
+	        catch (IOException e)
+	        {
+	        	
+	        }
+    	}
+        points=0;
+        try {
+			MainPacman.stopGame();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

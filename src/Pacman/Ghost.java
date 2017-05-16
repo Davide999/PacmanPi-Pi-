@@ -22,7 +22,8 @@ public class Ghost extends Thing {
     private static int VELOCITA_FANTASMI = -5;
 
     public Ghost(int x, int y) {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost1.png"));
+    	int nGhost=(int) (Math.floor(Math.random()*4)+1);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("sprites/ghost/ghost"+nGhost+".png"));
         image = ii.getImage();
         visible = true;
         this.x = x;
