@@ -93,7 +93,10 @@ public class Menu {
                 (PlayFrame.instance.getHeight() / 5)) + 2 * BUTTONHEIGHT, BUTTONWIDTH, BUTTONHEIGHT);
         exit.setBackground(Color.RED);
         exit.setForeground(Color.YELLOW);
-        exit.addActionListener(e -> System.exit(0));
+        exit.addActionListener(e -> {
+            PlayFrame.instance.setVisible(false);
+            System.exit(0);
+        });
         mainFrame.add(exit);
 
         // Game logo image

@@ -80,7 +80,7 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
     }
 
     public void init() {
-    	Music.instance.start();
+        Music.instance.start();
         timer.start();
         generateCharacters.start();
         doNotPaint = false;
@@ -131,17 +131,15 @@ public class PlayCanvas extends java.awt.Canvas implements ActionListener {
 
         // moves pacman and draws it
         PacmanCharacter.instance.paintImage(buffer);
-        
+
         try {
-			fileReader = new FileReader("BestScore.txt");
-			reader = new BufferedReader(fileReader);
-	        buffer.drawString("Score: " + PacmanCharacter.getPoints() + "  Best Score: " + reader.readLine() + "  Seconds: " + Music.instance.getTime() + "", 25, 25);
-	        reader.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            fileReader = new FileReader("BestScore.txt");
+            reader = new BufferedReader(fileReader);
+            buffer.drawString("Score: " + PacmanCharacter.getPoints() + "  Best Score: " + reader.readLine() + "  Seconds: " + Music.instance.getTime() + "", 25, 25);
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         synchronized (characters) {
             for (Drawable d : characters)

@@ -11,8 +11,10 @@ import javax.swing.ImageIcon;
 public class Background implements Runnable {
 	
 	public static void reInit() {
+        boolean act = instance.active;
 		instance = null;
 		instance = new Background();
+		instance.active = act;
 	}
 
     public static Background instance = new Background();

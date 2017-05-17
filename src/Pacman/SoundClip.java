@@ -6,7 +6,7 @@ import javax.sound.sampled.*;
 public class SoundClip {
 
     public static void start() {
-        File musica = new File("src/Pacman/musics/Tetris2.wav");
+        File musica = new File(SoundClip.class.getResource("musics/tetris2.wav").getFile());
         playSound(musica);
     }
 
