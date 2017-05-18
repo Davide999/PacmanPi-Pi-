@@ -75,7 +75,7 @@ public class Menu {
                 (PlayFrame.instance.getHeight() / 5)), BUTTONWIDTH, BUTTONHEIGHT);
         ldm.setBackground(Color.RED);
         ldm.setForeground(Color.YELLOW);
-        ldm.addActionListener(e -> Background.instance.toggleBackground());
+        ldm.addActionListener(e -> Background.instance.toggleBackground(true));
         o.add(ldm);
 
         back.setBounds((PlayFrame.instance.getWidth() / 2 - BUTTONWIDTH * 2 / 3), (PlayFrame.instance.getHeight() / 2 -

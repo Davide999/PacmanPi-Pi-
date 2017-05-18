@@ -215,6 +215,27 @@ public class PacmanCharacter implements ActionListener, Movable, Drawable {
 	        	
 	        }
     	}
+    	
+    	try
+        {
+        		PrintWriter writer = new PrintWriter("Background.txt", "UTF-8");
+        		if(Background.instance.getActive()==false)
+        		{
+        			writer.println("0");	
+        		}
+        		else
+        		{
+        			writer.println("1");
+        		}
+        		
+        		writer.close();
+        		
+        }
+        catch (IOException e)
+        {
+        	
+        }
+    	
         points=0;
         try {
 			MainPacman.stopGame();

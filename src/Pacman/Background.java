@@ -5,6 +5,10 @@
 package Pacman;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 
 
@@ -78,10 +82,44 @@ public class Background implements Runnable {
         }
     }
 
-    public void toggleBackground() {
-        active = !active;
+    public void toggleBackground(boolean click) {
+    	
+    	if(!click)
+    	{
+    		int readActive=0;
+	    	try
+	    	{
+	    	FileReader fileReader = new FileReader("Background.txt");
+	    	BufferedReader reader = new BufferedReader(fileReader);
+	    	readActive= Integer.parseInt(reader.readLine());
+	    	reader.close();
+	    	}
+	    	catch (IOException e)
+	    	{
+	    		
+	    	}
+	    	
+	    	if (readActive==0)
+	    	{
+	    		active=false;
+	    	}
+	    	else
+	    	{
+	    		active=true;
+	    	}
+    	}
+    	else
+    	{
+    		active = !active;
+    	}
     }
+    
+    
 
+    public boolean getActive()
+    {
+    	return active;
+    }
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
